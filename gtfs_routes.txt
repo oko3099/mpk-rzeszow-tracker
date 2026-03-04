@@ -1,0 +1,572 @@
+route_id,agency_id,route_short_name,route_long_name,route_type,route_color,route_text_color
+1938,1,12,Trembeckiego ZTM pętla 01 - Budziwojska pętla 22,3,D32A00,F5F5F5
+1977,1,20,Bardowskiego 03 - Bratkowice las 01,3,D32A00,F5F5F5
+1536,1,42,Piłsudskiego U. Marszałkowski 08 - Bł. Karoliny 09,3,D32A00,F5F5F5
+1849,1,15,Olbrachta pętla 09 - Zwięczycka MPWiK 05  p. Jarową,3,D32A00,F5F5F5
+1828,1,18,Obr. Poczty Gdańskiej pętla 08 - Pienińska pętla 03,3,D32A00,F5F5F5
+1482,1,22,Mrowla Otoka pętla 01 - Bardowskiego 04,3,D32A00,F5F5F5
+1632,1,N2,Słocińska pętla 11 nż - Bł. Karoliny pętla 09,3,31285F,D6D4DF
+1897,1,8,Sikorskiego MPGK 20 - Rudna Wielka zakręt 04 nż,3,D32A00,F5F5F5
+756,1,3,Boguchwała 97 - Krakowska granica 15,3,D32A00,F5F5F5
+2074,1,58,Hermanowa Czerwonki pętla 64 - Dworzec Lokalny p. Hermanową pętla,3,D32A00,F5F5F5
+1917,1,8,Rudna Wielka zakręt 04 - Sikorskiego MPGK 20,3,D32A00,F5F5F5
+1408,1,61,Łukasiewicza pętla 08 - Łukasiewicza pętla 08,3,D32A00,F5F5F5
+1823,1,47,Baligrodzka 01 - Dworaka targ 01,3,D32A00,F5F5F5
+1848,1,37,Hermanowa Przylasek pętla 05 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+1954,1,13,Lwowska szpital pętla 02 - Wita Stwosza pętla 01,3,D32A00,F5F5F5
+1457,1,51,Bardowskiego 04 - Jasionka EME Aero 02,3,D32A00,F5F5F5
+1877,1,0B,Dworzec Główny PKP 03 - Dworzec Główny PKP 03,3,D32A00,F5F5F5
+1846,1,11,Potockiego pętla 10 - Matuszczaka pętla 04,3,D32A00,F5F5F5
+1930,1,18,Obr. Poczty Gdańskiej pętla 08 - Łukasiewicza pętla 10,3,D32A00,F5F5F5
+1886,1,16,Kalinowa pętla 04 - Św. Rocha lasek pętla 11,3,D32A00,F5F5F5
+760,1,3,Krakowska granica 15 - Boguchwała 97,3,D32A00,F5F5F5
+1631,1,2,Baligrodzka 01 - Kard. K. Wojtyły pętla 03 nż,3,D32A00,F5F5F5
+1438,1,51,Jasionka EME Aero 01 - Bardowskiego 02,3,D32A00,F5F5F5
+1932,1,40,Łukasiewicza pętla 08 - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+953,1,28,Lubelska Zajezdnia MPK - Racławówka Zabierzów 23,3,D32A00,F5F5F5
+1830,1,37,Trembeckiego ZTM pętla 01 - Hermanowa Przylasek pętla 03,3,D32A00,F5F5F5
+1839,1,59,Trembeckiego ZTM pętla 01 - Przemysłowa U. Celny 05 nż,3,D32A00,F5F5F5
+1836,1,49,Św. Rocha lasek pętla 11 - Przemysłowa U. Celny 05 nż,3,D32A00,F5F5F5
+1944,1,18,Pienińska pętla 03 - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+1476,1,22,Bardowskiego 01 - Trzciana pętla 05,3,D32A00,F5F5F5
+1937,1,0A,Dworzec Główny PKP 01 - Dworzec Główny PKP 01,3,D32A00,F5F5F5
+1910,1,31,Lubelska Zajezdnia MPK - Sikorskiego MPGK 20,3,D32A00,F5F5F5
+1660,1,14,Dworzec Lokalny - Kard. K. Wojtyły pętla 03 nż,3,D32A00,F5F5F5
+1861,1,6,Ustrzycka pętla 01 nż - Malawa OSP 06 nż,3,D32A00,F5F5F5
+1853,1,9,Staroniwska pętla 12 nż - Olbrachta pętla 09,3,D32A00,F5F5F5
+1487,1,39,Przemysłowa U. Celny 05 - Dworzec Lokalny,3,D32A00,F5F5F5
+1929,1,16,Św. Rocha lasek pętla 11 - Kalinowa pętla 04,3,D32A00,F5F5F5
+2062,1,58,Dworzec Lokalny - Hermanowa Czerwonki pętla 64 p. Hermanową pętla,3,D32A00,F5F5F5
+1916,1,1,Krakowska granica 15 nż - Załęska zakład karny 08 nż,3,D32A00,F5F5F5
+1945,1,1,Spichlerzowa pętla 04 - Krakowska granica 15,3,D32A00,F5F5F5
+1058,1,33,Lubelska Zajezdnia MPK - Kalinowa pętla 04,3,D32A00,F5F5F5
+1826,1,17,Przemysłowa U. Celny 05 nż - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+1890,1,26,Krakowska granica 15 nż - Cienista cmentarz 04,3,D32A00,F5F5F5
+1874,1,17,Lwowska szpital pętla 02 - Wita Stwosza pętla 01,3,D32A00,F5F5F5
+1902,1,26,Cienista cmentarz 01 - Krakowska granica 15 nż,3,D32A00,F5F5F5
+1966,1,43,Dworaka targ 01 - Żołnierzy 9 DP bloki 06 nż,3,D32A00,F5F5F5
+1535,1,23,Lubelska Zajezdnia MPK - Matuszczaka pętla 04,3,D32A00,F5F5F5
+1961,1,27,Baligrodzka 01 - Cienista cmentarz 04,3,D32A00,F5F5F5
+1952,1,15,Olbrachta pętla 09 - Piłsudskiego U. Wojewódzki 06,3,D32A00,F5F5F5
+982,1,30,Matuszczaka pętla 04 - Mikołajczyka pętla 01,3,D32A00,F5F5F5
+2046,1,24,Miłocińska pętla 01 - Matuszczaka pętla 04,3,D32A00,F5F5F5
+1970,1,26,Cienista cmentarz 01 - Biznesowa 06,3,D32A00,F5F5F5
+2040,1,44,Dworaka targ 01 - Królka pętla 10,3,D32A00,F5F5F5
+994,1,30,Mikołajczyka pętla 03 - Matuszczaka pętla 04,3,D32A00,F5F5F5
+1478,1,22,Bardowskiego 01 - Świlcza 58,3,D32A00,F5F5F5
+1841,1,15,Piłsudskiego U. Wojewódzki 05 - Olbrachta pętla 09,3,D32A00,F5F5F5
+736,1,3,Krakowska granica 15 - Lutoryż pętla 04,3,D32A00,F5F5F5
+1913,1,27,Cienista cmentarz 01 - Baligrodzka 01,3,D32A00,F5F5F5
+1955,1,35,Kielanówka pętla 14 - Bardowskiego 04,3,D32A00,F5F5F5
+1833,1,7,Dworzec Lokalny - Krasne Auchan 01 p. Dworaka targ,3,D32A00,F5F5F5
+1865,1,4,Lubelska Zajezdnia MPK - Krasne Auchan 01,3,D32A00,F5F5F5
+1972,1,12,Budziwojska pętla 22 nż - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+952,1,28,Lubelska Zajezdnia MPK - Beskidzka granica 07,3,D32A00,F5F5F5
+1950,1,8,Warszawska / Borowa 08 nż - Sikorskiego MPGK 20 p. Pogwizdowską,3,D32A00,F5F5F5
+1862,1,19,Łukasiewicza pętla 10 - Miłocińska pętla 01,3,D32A00,F5F5F5
+1492,1,22,Bardowskiego 01 - Mrowla Otoka pętla 01,3,D32A00,F5F5F5
+1962,1,1,Krakowska granica 15 nż - Spichlerzowa pętla 04 nż,3,D32A00,F5F5F5
+2047,1,19,Miłocińska pętla 01 - Łukasiewicza pętla 10,3,D32A00,F5F5F5
+1633,1,2,Kard. K. Wojtyły pętla 03 nż - Baligrodzka 01,3,D32A00,F5F5F5
+1901,1,31,Sikorskiego MPGK 20 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+1903,1,34,Lwowska szpital pętla 02 - Kielanówka pętla 10,3,D32A00,F5F5F5
+2037,1,44,Tyczyn Kopernika 02 - Dworaka targ 01,3,D32A00,F5F5F5
+1928,1,34,Błękitne Wzgórze / Leśne Wzgórze 03 - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+1529,1,42,Bł. Karoliny 09 - Bł. Karoliny 09,3,D32A00,F5F5F5
+1822,1,18,Łukasiewicza pętla 10 - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+912,1,41,Bardowskiego 01 - Potockiego pętla 10,3,D32A00,F5F5F5
+1960,1,10,Bł. Karoliny 09 - Łukasiewicza pętla 08 p. Wywrockiego,3,D32A00,F5F5F5
+1939,1,32,Niepodległości / Rejtana 02 - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+1887,1,17,Lwowska szpital pętla 02 - Przemysłowa U. Celny 05,3,D32A00,F5F5F5
+1626,1,52,Zaczernie ML System / Fibrain 03 - Bardowskiego 04,3,D32A00,F5F5F5
+1893,1,1,Krakowska granica 15 nż - Spichlerzowa pętla 04 nż p. Ciepłowniczą EC,3,D32A00,F5F5F5
+1968,1,57,Dworaka targ 01 - Dworaka targ 01,3,D32A00,F5F5F5
+956,1,28,Beskidzka granica 07 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+955,1,28,Lubelska Zajezdnia MPK - Beskidzka granica 07 p. Racławówkę Doły,3,D32A00,F5F5F5
+1907,1,1,Załęska Zakład Karny 08 - Krakowska granica 15,3,D32A00,F5F5F5
+1628,1,52,Bardowskiego 03 - Zaczernie ML System / Fibrain 03,3,D32A00,F5F5F5
+1856,1,6,Słocińska pętla 11 nż - Ustrzycka pętla 02 nż,3,D32A00,F5F5F5
+1852,1,36,Św. Rocha lasek pętla 11 - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+1835,1,45,Bardowskiego 02 - Mogielnica pętla 01,3,D32A00,F5F5F5
+1659,1,14,Kard. K. Wojtyły pętla 03 nż - Dworzec Lokalny,3,D32A00,F5F5F5
+1859,1,26,Biznesowa 06 - Cienista cmentarz 04,3,D32A00,F5F5F5
+1770,1,28,Racławówka Zabierzów 23 - Lubelska Zajezdnia MPK p. Racławówkę Doły,3,D32A00,F5F5F5
+1765,1,51,Bardowskiego 01 - Jasionka - Port Lotniczy,3,D32A00,F5F5F5
+1061,1,33,Kalinowa pętla 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+1965,1,47,Dworaka targ 01 - Baligrodzka 01,3,D32A00,F5F5F5
+1857,1,15,Cieplińskiego 02 - Zwięczycka MPWiK 05,3,D32A00,F5F5F5
+1844,1,11,Matuszczaka pętla 04 - Potockiego pętla 10,3,D32A00,F5F5F5
+1834,1,19,Obr. Poczty Gdańskiej pętla 08 - Łukasiewicza pętla 10,3,D32A00,F5F5F5
+954,1,28,Beskidzka granica 07 - Lubelska Zajezdnia MPK p. Racławówkę Doły,3,D32A00,F5F5F5
+1850,1,10,Łukasiewicza pętla 08 - Bł. Karoliny pętla 09 p. Wywrockiego,3,D32A00,F5F5F5
+1934,1,6,Słocińska pętla 11 nż - Ustrzycka 06 nż,3,D32A00,F5F5F5
+774,1,3,Lutoryż pętla 04 - Krakowska granica 15,3,D32A00,F5F5F5
+1819,1,9,Olbrachta pętla 09 - Staroniwska pętla 12 nż,3,D32A00,F5F5F5
+1829,1,34,Kielanówka pętla 14 - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+1842,1,8,Staromiejska / Lubelska 02 nż - Rudna Wielka zakręt 04 nż,3,D32A00,F5F5F5
+1908,1,16,Wyzwolenia / Lubelska 02 nż - Kalinowa pętla 04,3,D32A00,F5F5F5
+1838,1,6,Piłsudskiego U. Wojewódzki 03 - Słocińska pętla 11,3,D32A00,F5F5F5
+1881,1,15,Zwięczycka MPWiK 05 - Olbrachta pętla 09 p. Jarową,3,D32A00,F5F5F5
+1832,1,32,Obr. Poczty Gdańskiej pętla 08 - Niepodległości / Rejtana 02,3,D32A00,F5F5F5
+2036,1,60,Św. Rocha kapliczka 08 nż - Olbrachta pętla 09,3,D32A00,F5F5F5
+1840,1,36,Bł. Karoliny 09 - Św. Rocha lasek pętla 11,3,D32A00,F5F5F5
+1871,1,4,Krasne Auchan 01 - Lubelska Zajezdnia MPK p. Cienistą cmentarz,3,D32A00,F5F5F5
+1969,1,7,Dworzec Lokalny - Krasne Auchan 01,3,D32A00,F5F5F5
+2041,1,44,Królka pętla 10 - Dworaka targ 01,3,D32A00,F5F5F5
+1635,1,54,Bardowskiego 03 - Głogów Młp. Leniar I 01 nż,3,D32A00,F5F5F5
+1629,1,54,Głogów Młp. Zelmer II 02 - Bardowskiego 02,3,D32A00,F5F5F5
+1904,1,36,Cieplińskiego 02 - Św. Rocha lasek pętla 11,3,D32A00,F5F5F5
+1926,1,43,Żołnierzy 9 Dyw. Piechoty bloki 06 nż - Dworaka targ 01,3,D32A00,F5F5F5
+1956,1,6,Ustrzycka pętla 01 - Słocińska pętla 11,3,D32A00,F5F5F5
+1953,1,35,Bardowskiego 02 - Kielanówka pętla 10,3,D32A00,F5F5F5
+1878,1,8,Sikorskiego MPGK 20 - Warszawska / Borowa 07 nż p. Pogwizdowską,3,D32A00,F5F5F5
+1967,1,4,Lubelska Zajezdnia MPK - Krasne Auchan 01 p. Cienistą cmentarz,3,D32A00,F5F5F5
+1940,1,16,Lubelska szpital 01 - Św. Rocha lasek pętla 11,3,D32A00,F5F5F5
+1471,1,22,Świlcza 58 - Bardowskiego 04,3,D32A00,F5F5F5
+1866,1,4,Krasne Auchan 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+1831,1,6,Malawa OSP 06 nż - Ustrzycka pętla 02 nż,3,D32A00,F5F5F5
+1958,1,12,Siedliska skrzyżowanie II 05 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+1873,1,7,Krasne Auchan 01 - Dworzec Lokalny,3,D32A00,F5F5F5
+1936,1,26,Krakowska granica 15 nż - Wyzwolenia / Warszawska 01 nż,3,D32A00,F5F5F5
+1918,1,8,Lubelska kościół 05 - Sikorskiego MPGK 20,3,D32A00,F5F5F5
+1905,1,45,Mogielnica pętla 01 - Bardowskiego 04,3,D32A00,F5F5F5
+1975,1,29,Trembeckiego ZTM pętla 01 - Przemysłowa U. Celny 05 nż,3,D32A00,F5F5F5
+1872,1,13,Langiewicza / Wita Stwosza 04 - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+1941,1,59,Przemysłowa U. Celny 05 nż - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+1480,1,22,Trzciana pętla 05 - Bardowskiego 04,3,D32A00,F5F5F5
+1854,1,34,Piłsudskiego U. Marszałkowski 08 - Kielanówka pętla 14,3,D32A00,F5F5F5
+1924,1,34,Lwowska szpital pętla 02 - Błękitne Wzgórze / Leśne Wzgórze 03 nż,3,D32A00,F5F5F5
+1974,1,16,Św. Rocha lasek pętla 11 - Lubelska szpital 02,3,D32A00,F5F5F5
+2088,1,62,Krakowska granica 15 nż - Kalinowa pętla 04,3,D32A00,F5F5F5
+1978,1,20,Bratkowice las 02 - Bardowskiego 04,3,D32A00,F5F5F5
+1766,1,51,Jasionka - Port Lotniczy - Bardowskiego 04,3,D32A00,F5F5F5
+1882,1,9,Olbrachta pętla 09 - Trembeckiego ZTM 05 nż,3,D32A00,F5F5F5
+1919,1,10,Bł. Karoliny 09 - Łukasiewicza pętla 08,3,D32A00,F5F5F5
+1927,1,1,Spichlerzowa pętla 04 - Krakowska granica 15 p. Ciepłowniczą EC,3,D32A00,F5F5F5
+893,1,41,Potockiego pętla 10 - Bardowskiego 04,3,D32A00,F5F5F5
+1821,1,1,Krakowska granica 15 nż - Ciepłownicza elektrociepłownia 06 nż,3,D32A00,F5F5F5
+1537,1,23,Matuszczaka pętla 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+1912,1,40,Bł. Karoliny 09 - Łukasiewicza pętla 08,3,D32A00,F5F5F5
+1769,1,28,Racławówka Zabierzów 23 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+948,1,28,Lubelska Zajezdnia MPK - Racławówka Zabierzów 23 p. Racławówkę Doły,3,D32A00,F5F5F5
+1946,1,15,Olbrachta pętla 09 - Zwięczycka MPWiK 05,3,D32A00,F5F5F5
+1858,1,15,Zwięczycka MPWiK 05 - Olbrachta pętla 09,3,D32A00,F5F5F5
+2089,1,62,Kalinowa pętla 04 - Krakowska granica 15 nż,3,D32A00,F5F5F5
+1307,1,3,Boguchwała 97 - Cieplińskiego 01,3,D32A00,F5F5F5
+2045,1,44,Dworaka targ 01 - Tyczyn Kopernika 39,3,D32A00,F5F5F5
+1864,1,17,Wita Stwosza / Langiewicza 02 - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+1491,1,39,Dworzec Lokalny - Przemysłowa U. Celny 05,3,D32A00,F5F5F5
+1816,1,19,Piłsudskiego U. Wojewódzki 05 - Łukasiewicza pętla 10,3,D32A00,F5F5F5
+1909,1,6,Ustrzycka / Magórska 07 - Słocińska pętla 11,3,D32A00,F5F5F5
+1867,1,5,Lubelska Zajezdnia MPK - Pienińska pętla 03,3,D32A00,F5F5F5
+1951,1,7,Krasne Auchan 01 - Dworzec Lokalny p. Dworaka targ,3,D32A00,F5F5F5
+1824,1,19,Łukasiewicza pętla 10 - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+1925,1,5,Pienińska pętla 03 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+1851,1,16,Kalinowa pętla 04 - Wyzwolenia / Warszawska 01 nż,3,D32A00,F5F5F5
+1922,1,N1,Łukasiewicza pętla 10 - Lubelska Zajezdnia MPK,3,31285F,D6D4DF
+1884,1,27,Piłsudskiego U. Marszałkowski 08 - Baligrodzka 01,3,D32A00,F5F5F5
+1855,1,8,Sikorskiego MPGK 20 - Warszawska / Borowa 08 nż,3,D32A00,F5F5F5
+1983,1,26,Wyzwolenia / Lubelska 02 nż - Biznesowa 06,3,D32A00,F5F5F5
+1643,1,N2,Bł. Karoliny 09 - Dworzec Główny PKP 03,3,31285F,D6D4DF
+1964,1,8,Warszawska / Borowa 07 nż - Sikorskiego MPGK 20,3,D32A00,F5F5F5
+1837,1,N3,Lubelska Zajezdnia MPK - Lubelska Zajezdnia MPK,3,31285F,D6D4DF
+1914,1,10,Łukasiewicza pętla 08 - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+1542,1,24,Matuszczaka pętla 04 - Miłocińska pętla 01,3,D32A00,F5F5F5
+1084,1,3,Boguchwała 97 - Mrowla Otoka pętla 01,3,D32A00,F5F5F5
+1825,1,36,Dąbrowskiego Instytut Muzyki 07 - Bł. Karoliny 09,3,D32A00,F5F5F5
+993,1,46,Dworzec Lokalny - Słocińska pętla 11,3,D32A00,F5F5F5
+1860,1,12,Trembeckiego ZTM pętla 01 - Siedliska Skrzyżowanie II 05,3,D32A00,F5F5F5
+1880,1,1,Ciepłownicza Elektrociepłownia 06 - Krakowska granica 15 p. Spichlerzową,3,D32A00,F5F5F5
+1868,1,1,Krakowska granica 15 nż - Ciepłownicza elektrociepłownia 06 nż p. Spichlerzową,3,D32A00,F5F5F5
+1875,1,6,Piłsudskiego U. Marszałkowski 08 - Ustrzycka 06,3,D32A00,F5F5F5
+1870,1,9,Trembeckiego ZTM 05 nż - Staroniwska pętla 12 nż,3,D32A00,F5F5F5
+2086,1,46,Dworzec Lokalny - Albigowa kościół 04 nż,3,D32A00,F5F5F5
+1544,1,42,Bł. Karoliny 09 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+2058,1,N1,Miłocińska pętla 01 - Łukasiewicza pętla 10,3,31285F,D6D4DF
+1963,1,29,Przemysłowa U. Celny 05 - Pl. Wolności 04,3,D32A00,F5F5F5
+1869,1,36,Bł. Karoliny 09 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+1935,1,9,Trembeckiego ZTM 02 nż - Olbrachta pętla 09,3,D32A00,F5F5F5
+776,1,3,Świlcza 58 - Boguchwała 97,3,D32A00,F5F5F5
+1985,1,26,Biznesowa 06 - Wyzwolenia / Warszawska 01 nż,3,D32A00,F5F5F5
+1888,1,1,Ciepłownicza Elektrociepłownia 06 - Krakowska granica 15,3,D32A00,F5F5F5
+1655,1,N2,Dworzec Główny PKP 01 - Bł. Karoliny 09,3,31285F,D6D4DF
+1933,1,6,Malawa OSP 06 nż - Ustrzycka 06 nż,3,D32A00,F5F5F5
+1883,1,17,Pl. Wolności 04 - Przemysłowa U. Celny 05,3,D32A00,F5F5F5
+1818,1,49,Przemysłowa U. Celny 05 - Św. Rocha lasek pętla 11,3,D32A00,F5F5F5
+1920,1,36,Piłsudskiego U. Marszałkowski 08 - Bł. Karoliny 09,3,D32A00,F5F5F5
+2087,1,46,Albigowa kościół 04 nż - Dworzec Lokalny,3,D32A00,F5F5F5
+782,1,3,Świlcza 58 - Lutoryż pętla 04,3,D32A00,F5F5F5
+1891,1,6,Ustrzycka / Magórska 07 - Malawa OSP 06 nż,3,D32A00,F5F5F5
+1957,1,6,Słocińska pętla 11 nż - Piłsudskiego U. Wojewódzki 06,3,D32A00,F5F5F5
+1973,1,N1,Łukasiewicza pętla 10 - Obr. Poczty Gdańskiej pętla 08,3,31285F,D6D4DF
+1658,1,2,Piłsudskiego U. Marszałkowski 08 - Baligrodzka 01,3,D32A00,F5F5F5
+1947,1,1,Piłsudskiego U. Marszałkowski 08 - Krakowska granica 15,3,D32A00,F5F5F5
+1080,1,3,Lutoryż pętla 04 - Mrowla Otoka pętla 01,3,D32A00,F5F5F5
+1915,1,N1,Obr. Poczty Gdańskiej pętla 08 - Łukasiewicza pętla 10,3,31285F,D6D4DF
+1077,1,3,Mrowla Otoka pętla 01 - Boguchwała 97,3,D32A00,F5F5F5
+1900,1,11,Potockiego pętla 10 - Piłsudskiego U. Wojewódzki 06,3,D32A00,F5F5F5
+1817,1,18,Lubelska szpital 01 - Pienińska,3,D32A00,F5F5F5
+1876,1,8,Sikorskiego MPGK 20 - Lubelska kościół 06 nż,3,D32A00,F5F5F5
+990,1,46,Słocińska pętla 11 - Dworzec Lokalny,3,D32A00,F5F5F5
+1959,1,15,Zwięczycka MPWiK 05 - Cieplińskiego 01 p. Jarową,3,D32A00,F5F5F5
+1906,1,29,Przemysłowa U. Celny 05 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+786,1,3,Boguchwała 97 - Świlcza 58,3,D32A00,F5F5F5
+1820,1,11,Matuszczaka pętla 04 - Cieplińskiego 01,3,D32A00,F5F5F5
+1931,1,32,Niepodległości / Rejtana 02 - Obr. Poczty Gdańskiej pętla 08 p. Matuszczaka,3,D32A00,F5F5F5
+1911,1,57,Dworaka targ 01 - Warszawska / Borowa 07 nż,3,D32A00,F5F5F5
+1079,1,3,Mrowla Otoka pętla 01 - Lutoryż pętla 04,3,D32A00,F5F5F5
+1653,1,2,Kard. K. Wojtyły pętla 03 nż - Cieplińskiego 01,3,D32A00,F5F5F5
+767,1,3,Piłsudskiego U. Marszałkowski 08 - Świlcza 58,3,D32A00,F5F5F5
+1923,1,15,Cieplińskiego 02 - Zwięczycka MPWiK 05 p. Jarową,3,D32A00,F5F5F5
+779,1,3,Lutoryż pętla 04 - Świlcza 58,3,D32A00,F5F5F5
+1647,1,2,Baligrodzka 01 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+2039,1,60,Olbrachta pętla 09 - Św. Rocha kapliczka 08 nż,3,D32A00,F5F5F5
+1885,1,1,Krakowska granica 15 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+1892,1,32,Obr. Poczty Gdańskiej pętla 08 - Niepodległości / Rejtana 02 p. Matuszczaka,3,D32A00,F5F5F5
+763,1,3,Cieplińskiego 02 - Boguchwała 97,3,D32A00,F5F5F5
+1645,1,N2,Bł. Karoliny 09 - Słocińska pętla 11,3,31285F,D6D4DF
+1948,1,6,Ustrzycka / Magórska 07 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+1921,1,34,Błękitne Wzgórze / Leśne Wzgórze 03 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+1657,1,2,Cieplińskiego 02 - Kard. K. Wojtyły pętla 03 nż,3,D32A00,F5F5F5
+1484,1,22,Trzciana pętla 05 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+1843,1,11,Piłsudskiego U. Wojewódzki 05 - Potockiego pętla 10,3,D32A00,F5F5F5
+1982,1,20,Bratkowice las 02 - Bardowskiego 04 p. Rudną Wielką I,3,D32A00,F5F5F5
+1894,1,29,Bardowskiego 02 - Przemysłowa U. Celny 05 nż,3,D32A00,F5F5F5
+748,1,3,Cieplińskiego 02 - Lutoryż pętla 04,3,D32A00,F5F5F5
+1943,1,6,Piłsudskiego U. Wojewódzki 03 - Malawa OSP 06 nż,3,D32A00,F5F5F5
+1879,1,57,Warszawska / Borowa 08 nż - Dworaka targ 01,3,D32A00,F5F5F5
+1078,1,3,Piłsudskiego U. Marszałkowski 08 - Mrowla Otoka pętla 01,3,D32A00,F5F5F5
+1845,1,1,Piłsudskiego U. Wojewódzki 05 - Spichlerzowa pętla 04 nż,3,D32A00,F5F5F5
+1898,1,1,Spichlerzowa pętla 04 - Piłsudskiego U. Wojewódzki 06,3,D32A00,F5F5F5
+777,1,3,Krakowska granica 15 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+1899,1,6,Ustrzycka pętla 01 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+1081,1,3,Piłsudskiego U. Marszałkowski 08 - Krakowska granica 15,3,D32A00,F5F5F5
+2090,1,26,Wyzwolenia / Lubelska 02 nż - Krakowska granica 15 nż,3,D32A00,F5F5F5
+1827,1,27,Baligrodzka 01 - Piłsudskiego U. Marszałkowski 05,3,D32A00,F5F5F5
+1979,1,20,Warszawska / Borowa 08 nż - Bratkowice las 01,3,D32A00,F5F5F5
+1847,1,15,Zwięczycka MPWiK 05 - Cieplińskiego 01,3,D32A00,F5F5F5
+910000,1,15,Piłsudskiego U. Wojewódzki 06 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910001,1,58,Zajezdnia MPK - Dworzec Lokalny,3,D32A00,F5F5F5
+910002,1,54,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910003,1,47,Lubelska Zajezdnia MPK - Baligrodzka 01,3,D32A00,F5F5F5
+910004,1,11,Bardowskiego 04 - Piłsudskiego U. Wojewódzki 05,3,D32A00,F5F5F5
+910005,1,24,Miłocińska pętla 01 - Zajezdnia MPK,3,D32A00,F5F5F5
+910006,1,3,Lubelska Zajezdnia MPK - Krakowska granica 15 nż,3,D32A00,F5F5F5
+910007,1,16,Wyzwolenia / Warszawska 01 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910008,1,37,Trembeckiego ZTM pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910009,1,13,Lubelska Zajezdnia MPK - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+910010,1,2,Lubelska Zajezdnia MPK - Baligrodzka 01,3,D32A00,F5F5F5
+910011,1,44,Dworaka targ 01 - Zajezdnia MPK,3,D32A00,F5F5F5
+910012,1,58,Lubelska Zajezdnia MPK - Dworzec Lokalny,3,D32A00,F5F5F5
+910013,1,6,Piłsudskiego U. Wojewódzki 06 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910014,1,27,Piłsudskiego U. Marszałkowski 07 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910015,1,58,Dworzec Lokalny - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910016,1,42,Piłsudskiego U. Marszałkowski 07 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910017,1,37,Lubelska Zajezdnia MPK - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910018,1,17,Wita Stwosza pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910019,1,20,Lubelska Zajezdnia MPK - Bardowskiego 03,3,D32A00,F5F5F5
+910020,1,51,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910021,1,1,Krakowska granica 15 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910022,1,N1,Mikołajczyka pętla 01 - Miłocińska pętla 01,3,31285F,D6D4DF
+910023,1,35,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910024,1,44,Trembeckiego ZTM pętla 01 - Dworaka targ 01,3,D32A00,F5F5F5
+910025,1,39,Lubelska Zajezdnia MPK - Dworzec Lokalny,3,D32A00,F5F5F5
+910026,1,6,Lubelska Zajezdnia MPK - Piłsudskiego U. Wojewódzki 05,3,D32A00,F5F5F5
+910027,1,0A,Lubelska Zajezdnia MPK - Dworzec Główny PKP 01,3,D32A00,F5F5F5
+910028,1,3,Krakowska granica 15 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910029,1,54,Zajezdnia MPK - Bardowskiego 03,3,D32A00,F5F5F5
+910030,1,19,Lubelska Zajezdnia MPK - Piłsudskiego U. Wojewódzki 05,3,D32A00,F5F5F5
+910031,1,14,Dworzec Lokalny - Zajezdnia MPK,3,D32A00,F5F5F5
+910032,1,34,Lubelska Zajezdnia MPK - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+910033,1,22,Lubelska Zajezdnia MPK - Bardowskiego 01,3,D32A00,F5F5F5
+910034,1,12,Lubelska Zajezdnia MPK - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910035,1,8,Lubelska Zajezdnia MPK - Staromiejska / Lubelska 02 nż,3,D32A00,F5F5F5
+910036,1,11,Lubelska Zajezdnia MPK - Potockiego pętla 10,3,D32A00,F5F5F5
+910037,1,44,Dworaka targ 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910038,1,52,Lubelska Zajezdnia MPK - Bardowskiego 03,3,D32A00,F5F5F5
+910039,1,52,Zajezdnia MPK - Bardowskiego 03,3,D32A00,F5F5F5
+910040,1,3,Cieplińskiego 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910041,1,8,Warszawska / Borowa 07 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910042,1,36,Lubelska Zajezdnia MPK - Cieplińskiego 02,3,D32A00,F5F5F5
+910043,1,20,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910044,1,54,Trembeckiego ZTM pętla 01 - Bardowskiego 03,3,D32A00,F5F5F5
+910045,1,17,Lubelska Zajezdnia MPK - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+910046,1,14,Lubelska Zajezdnia MPK - Dworzec Lokalny,3,D32A00,F5F5F5
+910047,1,16,Lubelska Zajezdnia MPK - Lubelska szpital 01,3,D32A00,F5F5F5
+910048,1,2,Baligrodzka 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910049,1,6,Piłsudskiego U. Marszałkowski 07 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910050,1,17,Lwowska szpital pętla 02 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910051,1,20,Bardowskiego 04 - Zajezdnia MPK,3,D32A00,F5F5F5
+910052,1,12,Trembeckiego ZTM pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910053,1,45,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910054,1,33,Dworzec Lokalny - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910055,1,9,Lubelska Zajezdnia MPK - Trembeckiego ZTM 02 nż,3,D32A00,F5F5F5
+910056,1,35,Zajezdnia MPK - Bardowskiego 02,3,D32A00,F5F5F5
+910057,1,42,Lubelska Zajezdnia MPK - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910058,1,39,Dworzec Lokalny - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910059,1,51,Zajezdnia MPK - Bardowskiego 01,3,D32A00,F5F5F5
+910060,1,19,Miłocińska pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910061,1,43,Lubelska Zajezdnia MPK - Dworaka targ 01,3,D32A00,F5F5F5
+910062,1,15,Lubelska Zajezdnia MPK - Cieplińskiego 02,3,D32A00,F5F5F5
+910063,1,30,Lubelska Zajezdnia MPK - Mikołajczyka pętla 03,3,D32A00,F5F5F5
+910064,1,0A,Dworzec Główny PKP 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910065,1,36,Lubelska Zajezdnia MPK - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+910066,1,26,Wyzwolenia / Warszawska 01 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910067,1,54,Bardowskiego 04 - Zajezdnia MPK,3,D32A00,F5F5F5
+910068,1,44,Dworzec Lokalny - Dworaka targ 01,3,D32A00,F5F5F5
+910069,1,N3,Dworzec Lokalny - Lubelska Zajezdnia MPK,3,31285F,D6D4DF
+910070,1,24,Lubelska Zajezdnia MPK - Miłocińska pętla 01,3,D32A00,F5F5F5
+910071,1,0B,Lubelska Zajezdnia MPK - Dworzec Główny PKP 03,3,D32A00,F5F5F5
+910072,1,51,Trembeckiego ZTM pętla 01 - Bardowskiego 01,3,D32A00,F5F5F5
+910073,1,11,Potockiego pętla 10 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910074,1,37,Bardowskiego 04 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910075,1,19,Trembeckiego ZTM pętla 01 - Miłocińska pętla 01,3,D32A00,F5F5F5
+910076,1,1,Lubelska Zajezdnia MPK - Krakowska granica 15 nż,3,D32A00,F5F5F5
+910077,1,N3,Trembeckiego ZTM pętla 01 - Lubelska Zajezdnia MPK,3,31285F,D6D4DF
+910078,1,57,Lubelska Zajezdnia MPK - Warszawska / Borowa 08 nż,3,D32A00,F5F5F5
+910079,1,54,Dworaka targ 01 - Bardowskiego 03,3,D32A00,F5F5F5
+910080,1,44,Lubelska Zajezdnia MPK - Dworaka targ 01,3,D32A00,F5F5F5
+910081,1,17,Dworaka targ 01 - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+910082,1,32,Obr. Poczty Gdańskiej pętla 08 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910083,1,54,Lubelska Zajezdnia MPK - Bardowskiego 03,3,D32A00,F5F5F5
+910084,1,34,Lwowska szpital pętla 02 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910085,1,40,Zajezdnia MPK - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+910086,1,19,Lubelska Zajezdnia MPK - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+910087,1,59,Trembeckiego ZTM pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910088,1,14,Dworzec Lokalny - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910089,1,20,Lubelska Zajezdnia MPK - Warszawska / Borowa 08 nż,3,D32A00,F5F5F5
+910090,1,26,Lubelska Zajezdnia MPK - Wyzwolenia / Lubelska 02 nż,3,D32A00,F5F5F5
+910091,1,18,Obr. Poczty Gdańskiej pętla 08 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910092,1,59,Lubelska Zajezdnia MPK - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910093,1,36,Piłsudskiego U. Marszałkowski 07 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910094,1,29,Lubelska Zajezdnia MPK - Bardowskiego 02,3,D32A00,F5F5F5
+910095,1,30,Mikołajczyka pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910096,1,17,Lubelska Zajezdnia MPK - Wita Stwosza / Langiewicza 02,3,D32A00,F5F5F5
+910097,1,18,Lubelska Zajezdnia MPK - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+910098,1,6,Ustrzycka 06 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910099,1,15,Lubelska Zajezdnia MPK - Piłsudskiego U. Wojewódzki 05,3,D32A00,F5F5F5
+910100,1,45,Lubelska Zajezdnia MPK - Bardowskiego 02,3,D32A00,F5F5F5
+910101,1,22,Zajezdnia MPK - Bardowskiego 01,3,D32A00,F5F5F5
+910102,1,26,Cienista cmentarz 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910103,1,2,Cieplińskiego 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910104,1,35,Lubelska Zajezdnia MPK - Bardowskiego 02,3,D32A00,F5F5F5
+910105,1,32,Lubelska Zajezdnia MPK - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+910106,1,19,Lubelska Zajezdnia MPK - Miłocińska pętla 01,3,D32A00,F5F5F5
+910107,1,27,Baligrodzka 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910108,1,1,Zajezdnia MPK - Krakowska granica 15 nż,3,D32A00,F5F5F5
+910109,1,12,Baligrodzka 01 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910110,1,3,Zajezdnia MPK - Krakowska granica 15 nż,3,D32A00,F5F5F5
+910111,1,42,Bardowskiego 04 - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910112,1,16,Lubelska szpital 02 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910113,1,27,Zajezdnia MPK - Cienista cmentarz 01,3,D32A00,F5F5F5
+910114,1,41,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910115,1,7,Lubelska Zajezdnia MPK - Dworzec Lokalny,3,D32A00,F5F5F5
+910116,1,13,Lwowska szpital pętla 02 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910117,1,59,Piłsudskiego U. Wojewódzki 06 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910118,1,0B,Dworzec Główny PKP 03 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910119,1,57,Lubelska Zajezdnia MPK - Dworaka targ 01,3,D32A00,F5F5F5
+910120,1,41,Zajezdnia MPK - Bardowskiego 01,3,D32A00,F5F5F5
+910121,1,52,Bardowskiego 04 - Zajezdnia MPK,3,D32A00,F5F5F5
+910122,1,41,Trembeckiego ZTM pętla 01 - Bardowskiego 01,3,D32A00,F5F5F5
+910123,1,1,Dworzec Lokalny - Krakowska granica 15 nż,3,D32A00,F5F5F5
+910124,1,13,Wita Stwosza pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910125,1,14,Trembeckiego ZTM pętla 01 - Dworzec Lokalny,3,D32A00,F5F5F5
+910126,1,6,Lubelska Zajezdnia MPK - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910127,1,27,Lubelska Zajezdnia MPK - Baligrodzka 01,3,D32A00,F5F5F5
+910128,1,23,Dworzec Lokalny - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910129,1,1,Piłsudskiego U. Wojewódzki 06 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910130,1,13,Lubelska Zajezdnia MPK - Langiewicza / Wita Stwosza 04,3,D32A00,F5F5F5
+910131,1,36,Bł. Karoliny pętla 09 - Zajezdnia MPK,3,D32A00,F5F5F5
+910132,1,17,Trembeckiego ZTM pętla 01 - Pl. Wolności 04,3,D32A00,F5F5F5
+910133,1,24,Obr. Poczty Gdańskiej pętla 08 - Miłocińska pętla 01,3,D32A00,F5F5F5
+910134,1,N2,Trembeckiego ZTM pętla 01 - Dworzec Główny PKP 01,3,31285F,D6D4DF
+910135,1,47,Baligrodzka 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910136,1,16,Lubelska szpital 02 - Zajezdnia MPK,3,D32A00,F5F5F5
+910137,1,26,Zajezdnia MPK - Cienista cmentarz 01,3,D32A00,F5F5F5
+910138,1,51,Bardowskiego 04 - Zajezdnia MPK,3,D32A00,F5F5F5
+910139,1,1,Lubelska Zajezdnia MPK - Ciepłownicza elektrociepłownia 06 nż,3,D32A00,F5F5F5
+910140,1,36,Lubelska Zajezdnia MPK - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910141,1,19,Obr. Poczty Gdańskiej pętla 08 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910142,1,9,Lubelska Zajezdnia MPK - Trembeckiego ZTM 05 nż,3,D32A00,F5F5F5
+910143,1,8,Lubelska Zajezdnia MPK - Lubelska kościół 05 nż,3,D32A00,F5F5F5
+910144,1,42,Lubelska Zajezdnia MPK - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+910145,1,0A,Dworzec Główny PKP 01 - Zajezdnia MPK,3,D32A00,F5F5F5
+910146,1,1,Lubelska Zajezdnia MPK - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910147,1,46,Dworzec Lokalny - Zajezdnia MPK,3,D32A00,F5F5F5
+910148,1,47,Lubelska Zajezdnia MPK - Dworaka targ 01,3,D32A00,F5F5F5
+910149,1,39,Zajezdnia MPK - Dworzec Lokalny,3,D32A00,F5F5F5
+910150,1,40,Lubelska Zajezdnia MPK - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+910151,1,51,Bł. Karoliny pętla 09 - Bardowskiego 01,3,D32A00,F5F5F5
+910152,1,34,Lwowska szpital pętla 02 - Zajezdnia MPK,3,D32A00,F5F5F5
+910153,1,46,Zajezdnia MPK - Dworzec Lokalny,3,D32A00,F5F5F5
+910154,1,1,Spichlerzowa pętla 04 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910155,1,19,Ustrzycka 06 nż - Miłocińska pętla 01,3,D32A00,F5F5F5
+910156,1,52,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910157,1,N2,Dworzec Główny PKP 03 - Lubelska Zajezdnia MPK,3,31285F,D6D4DF
+910158,1,36,Bł. Karoliny pętla 09 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910159,1,36,Zajezdnia MPK - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+910160,1,46,Dworzec Lokalny - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910161,1,10,Lubelska Zajezdnia MPK - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+910162,1,47,Bardowskiego 04 - Baligrodzka 01,3,D32A00,F5F5F5
+910163,1,58,Bardowskiego 04 - Dworzec Lokalny,3,D32A00,F5F5F5
+910164,1,1,Bardowskiego 04 - Piłsudskiego U. Wojewódzki 05,3,D32A00,F5F5F5
+910165,1,26,Lubelska Zajezdnia MPK - Cienista cmentarz 01,3,D32A00,F5F5F5
+910166,1,18,Lubelska Zajezdnia MPK - Lubelska szpital 01,3,D32A00,F5F5F5
+910167,1,12,Bardowskiego 04 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910168,1,3,Krakowska granica 15 nż - Zajezdnia MPK,3,D32A00,F5F5F5
+910169,1,11,Cieplińskiego 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910170,1,12,Piłsudskiego U. Marszałkowski 07 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910171,1,6,Piłsudskiego U. Marszałkowski 07 - Ustrzycka / Magórska 07,3,D32A00,F5F5F5
+910172,1,51,Lubelska Zajezdnia MPK - Bardowskiego 01,3,D32A00,F5F5F5
+910173,1,37,Cieplińskiego 01 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910174,1,9,Trembeckiego ZTM 05 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910175,1,2,Zajezdnia MPK - Cieplińskiego 02,3,D32A00,F5F5F5
+910176,1,3,Lubelska Zajezdnia MPK - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910177,1,26,Lubelska Zajezdnia MPK - Krakowska granica 15 nż,3,D32A00,F5F5F5
+910178,1,51,Piłsudskiego U. Wojewódzki 06 - Bardowskiego 03,3,D32A00,F5F5F5
+910179,1,27,Cienista cmentarz 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910180,1,4,Cienista cmentarz 04 - Krasne Auchan 01,3,D32A00,F5F5F5
+910181,1,26,Wyzwolenia / Warszawska 01 nż - Zajezdnia MPK,3,D32A00,F5F5F5
+910182,1,8,Zajezdnia MPK - Lubelska kościół 05 nż,3,D32A00,F5F5F5
+910183,1,10,Bł. Karoliny pętla 09 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910184,1,41,Dworaka targ 01 - Bardowskiego 01,3,D32A00,F5F5F5
+910185,1,4,Wyzwolenia / Warszawska 01 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910186,1,46,Piłsudskiego U. Marszałkowski 07 - Dworzec Lokalny,3,D32A00,F5F5F5
+910187,1,51,Cieplińskiego 01 - Bardowskiego 01,3,D32A00,F5F5F5
+910188,1,27,Cienista cmentarz 04 - Zajezdnia MPK,3,D32A00,F5F5F5
+910189,1,22,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910190,1,29,Lubelska Zajezdnia MPK - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910191,1,34,Piłsudskiego U. Marszałkowski 07 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910192,1,32,Zajezdnia MPK - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+910193,1,17,Piłsudskiego U. Wojewódzki 06 - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+910194,1,52,Dworzec Główny PKP 03 - Bardowskiego 03,3,D32A00,F5F5F5
+910195,1,44,Zajezdnia MPK - Dworaka targ 01,3,D32A00,F5F5F5
+910196,1,46,Lubelska Zajezdnia MPK - Dworzec Lokalny,3,D32A00,F5F5F5
+910197,1,N2,Pl. Wolności 04 - Dworzec Główny PKP 01,3,31285F,D6D4DF
+910198,1,42,Piłsudskiego U. Marszałkowski 07 - Zajezdnia MPK,3,D32A00,F5F5F5
+910199,1,41,Bardowskiego 04 - Zajezdnia MPK,3,D32A00,F5F5F5
+910200,1,24,Miłocińska pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910201,1,52,Dworzec Lokalny - Bardowskiego 03,3,D32A00,F5F5F5
+910202,1,20,Zajezdnia MPK - Bardowskiego 03,3,D32A00,F5F5F5
+910203,1,54,Lubelska kościół 06 nż - Bardowskiego 03,3,D32A00,F5F5F5
+910204,1,37,Obr. Poczty Gdańskiej pętla 08 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910205,1,42,Bł. Karoliny pętla 09 - Zajezdnia MPK,3,D32A00,F5F5F5
+910206,1,32,Niepodległości / Rejtana 02 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910207,1,34,Lubelska Zajezdnia MPK - Błękitne Wzgórze / Leśne Wzgórze 03 nż,3,D32A00,F5F5F5
+910208,1,31,Trembeckiego ZTM 05 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910209,1,32,Niepodległości / Rejtana 02 - Zajezdnia MPK,3,D32A00,F5F5F5
+910210,1,27,Lubelska Zajezdnia MPK - Cienista cmentarz 01,3,D32A00,F5F5F5
+910211,1,1,Załęska zakład karny 08 nż - Zajezdnia MPK,3,D32A00,F5F5F5
+910212,1,16,Lubelska Zajezdnia MPK - Wyzwolenia / Lubelska 02 nż,3,D32A00,F5F5F5
+910213,1,36,Przemysłowa U. Celny 05 nż - Dąbrowskiego / Chrobrego 07,3,D32A00,F5F5F5
+910214,1,32,Zajezdnia MPK - Niepodległości / Rejtana 02,3,D32A00,F5F5F5
+910215,1,11,Lubelska Zajezdnia MPK - Piłsudskiego U. Wojewódzki 05,3,D32A00,F5F5F5
+910216,1,15,Cieplińskiego 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910217,1,22,Piłsudskiego U. Marszałkowski 07 - Bardowskiego 01,3,D32A00,F5F5F5
+910218,1,1,Bardowskiego 04 - Krakowska granica 15 nż,3,D32A00,F5F5F5
+910219,1,2,Baligrodzka 01 - Zajezdnia MPK,3,D32A00,F5F5F5
+910220,1,41,Lubelska Zajezdnia MPK - Potockiego pętla 10,3,D32A00,F5F5F5
+910221,1,N3,Obr. Poczty Gdańskiej pętla 08 - Lubelska Zajezdnia MPK,3,31285F,D6D4DF
+910222,1,1,Piłsudskiego U. Marszałkowski 07 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910223,1,29,Trembeckiego ZTM pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910224,1,1,Piłsudskiego U. Marszałkowski 07 - Zajezdnia MPK,3,D32A00,F5F5F5
+910225,1,6,Lubelska Zajezdnia MPK - Ustrzycka / Magórska 07,3,D32A00,F5F5F5
+910226,1,57,Warszawska / Borowa 07 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910227,1,15,Bardowskiego 04 - Cieplińskiego 02,3,D32A00,F5F5F5
+910228,1,45,Zajezdnia MPK - Bardowskiego 02,3,D32A00,F5F5F5
+910229,1,3,Lubelska Zajezdnia MPK - Cieplińskiego 02,3,D32A00,F5F5F5
+910230,1,6,Piłsudskiego U. Wojewódzki 06 - Zajezdnia MPK,3,D32A00,F5F5F5
+910231,1,2,Piłsudskiego U. Marszałkowski 07 - Baligrodzka 01,3,D32A00,F5F5F5
+910232,1,5,Trembeckiego ZTM pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910233,1,39,Dworzec Lokalny - Zajezdnia MPK,3,D32A00,F5F5F5
+910234,1,27,Lubelska Zajezdnia MPK - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910235,1,1,Załęska zakład karny 08 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910236,1,16,Zajezdnia MPK - Lubelska szpital 01,3,D32A00,F5F5F5
+910237,1,N1,Obr. Poczty Gdańskiej pętla 08 - Miłocińska pętla 01,3,31285F,D6D4DF
+910238,1,6,Ustrzycka pętla 02 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910239,1,24,Zajezdnia MPK - Miłocińska pętla 01,3,D32A00,F5F5F5
+910240,1,17,Lwowska szpital pętla 02 - Zajezdnia MPK,3,D32A00,F5F5F5
+910241,1,54,Piłsudskiego U. Wojewódzki 06 - Bardowskiego 03,3,D32A00,F5F5F5
+910242,1,34,Błękitne Wzgórze / Leśne Wzgórze 04 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910243,1,18,Zajezdnia MPK - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+910244,1,10,Zajezdnia MPK - Bł. Karoliny pętla 09,3,D32A00,F5F5F5
+910245,1,34,Lubelska Zajezdnia MPK - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910246,1,54,Wyzwolenia / Warszawska 01 nż - Bardowskiego 03,3,D32A00,F5F5F5
+910247,1,30,Bardowskiego 04 - Mikołajczyka pętla 03,3,D32A00,F5F5F5
+910248,1,0B,Zajezdnia MPK - Dworzec Główny PKP 03,3,D32A00,F5F5F5
+910249,1,16,Wyzwolenia / Warszawska 01 nż - Zajezdnia MPK,3,D32A00,F5F5F5
+910250,1,26,Krasne Auchan 01 - Cienista cmentarz 01,3,D32A00,F5F5F5
+910251,1,52,Mikołajczyka pętla 01 - Bardowskiego 03,3,D32A00,F5F5F5
+910252,1,22,Bardowskiego 04 - Zajezdnia MPK,3,D32A00,F5F5F5
+910253,1,29,Dworzec Lokalny - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910254,1,18,Obr. Poczty Gdańskiej pętla 08 - Zajezdnia MPK,3,D32A00,F5F5F5
+910255,1,16,Zajezdnia MPK - Wyzwolenia / Lubelska 02 nż,3,D32A00,F5F5F5
+910256,1,61,Łukasiewicza pętla 10 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910257,1,35,Bardowskiego 04 - Zajezdnia MPK,3,D32A00,F5F5F5
+910258,1,59,Dworzec Lokalny - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910259,1,2,Piłsudskiego U. Marszałkowski 07 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910260,1,14,Zajezdnia MPK - Dworzec Lokalny,3,D32A00,F5F5F5
+910261,1,33,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910262,1,2,Zajezdnia MPK - Baligrodzka 01,3,D32A00,F5F5F5
+910263,1,19,Obr. Poczty Gdańskiej pętla 08 - Miłocińska pętla 01,3,D32A00,F5F5F5
+910264,1,43,Dworaka targ 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910265,1,43,Bardowskiego 04 - Dworaka targ 01,3,D32A00,F5F5F5
+910266,1,15,Zajezdnia MPK - Cieplińskiego 02,3,D32A00,F5F5F5
+910267,1,N3,Trembeckiego ZTM 05 nż - Lubelska Zajezdnia MPK,3,31285F,D6D4DF
+910268,1,2,Ustrzycka pętla 02 nż - Baligrodzka 01,3,D32A00,F5F5F5
+910269,1,12,Dworzec Lokalny - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910270,1,11,Piłsudskiego U. Wojewódzki 06 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910271,1,40,Bł. Karoliny pętla 09 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910272,1,4,Lwowska szpital pętla 02 - Krasne Auchan 01,3,D32A00,F5F5F5
+910273,1,8,Lubelska Zajezdnia MPK - Warszawska / Borowa 07 nż,3,D32A00,F5F5F5
+910274,1,3,Warszawska / Borowa 07 nż - Cieplińskiego 02,3,D32A00,F5F5F5
+910275,1,N3,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,31285F,D6D4DF
+910276,1,8,Lubelska kościół 06 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910277,1,6,Lubelska Zajezdnia MPK - Ustrzycka pętla 01 nż,3,D32A00,F5F5F5
+910278,1,22,Piłsudskiego U. Marszałkowski 07 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910279,1,22,Trembeckiego ZTM pętla 01 - Bardowskiego 01,3,D32A00,F5F5F5
+910280,1,42,Bł. Karoliny pętla 09 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910281,1,32,Lubelska Zajezdnia MPK - Niepodległości / Rejtana 02,3,D32A00,F5F5F5
+910282,1,7,Dworzec Lokalny - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910283,1,1,Zajezdnia MPK - Ciepłownicza elektrociepłownia 06 nż,3,D32A00,F5F5F5
+910284,1,4,Bardowskiego 04 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910285,1,2,Lubelska Zajezdnia MPK - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910286,1,46,Bardowskiego 04 - Dworzec Lokalny,3,D32A00,F5F5F5
+910287,1,19,Mikołajczyka pętla 01 - Miłocińska pętla 01,3,D32A00,F5F5F5
+910288,1,0A,Zajezdnia MPK - Dworzec Główny PKP 01,3,D32A00,F5F5F5
+910289,1,51,Obr. Poczty Gdańskiej pętla 08 - Bardowskiego 01,3,D32A00,F5F5F5
+910290,1,8,Lubelska Zajezdnia MPK - Warszawska / Borowa 08 nż,3,D32A00,F5F5F5
+910291,1,12,Piłsudskiego U. Wojewódzki 06 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910292,1,46,Trembeckiego ZTM pętla 01 - Dworzec Lokalny,3,D32A00,F5F5F5
+910293,1,54,Piłsudskiego U. Marszałkowski 07 - Bardowskiego 01,3,D32A00,F5F5F5
+910294,1,37,Trembeckiego ZTM 05 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910295,1,12,Warszawska / Borowa 07 nż - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910296,1,6,Mikołajczyka pętla 01 - Ustrzycka / Magórska 07,3,D32A00,F5F5F5
+910297,1,42,Zajezdnia MPK - Piłsudskiego U. Marszałkowski 08,3,D32A00,F5F5F5
+910298,1,57,Dworaka targ 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910299,1,31,Trembeckiego ZTM pętla 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910300,1,17,Zajezdnia MPK - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+910301,1,44,Bardowskiego 04 - Dworaka targ 01,3,D32A00,F5F5F5
+910302,1,30,Ustrzycka 06 nż - Mikołajczyka pętla 03,3,D32A00,F5F5F5
+910303,1,27,Baligrodzka 01 - Zajezdnia MPK,3,D32A00,F5F5F5
+910304,1,2,Bł. Karoliny pętla 09 - Baligrodzka 01,3,D32A00,F5F5F5
+910305,1,19,Bardowskiego 04 - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+910306,1,52,Trembeckiego ZTM pętla 01 - Bardowskiego 03,3,D32A00,F5F5F5
+910307,1,8,Zajezdnia MPK - Warszawska / Borowa 07 nż,3,D32A00,F5F5F5
+910308,1,59,Bardowskiego 04 - Trembeckiego ZTM pętla 01,3,D32A00,F5F5F5
+910309,1,1,Lubelska Zajezdnia MPK - Piłsudskiego U. Wojewódzki 05,3,D32A00,F5F5F5
+910310,1,61,Lubelska Zajezdnia MPK - Łukasiewicza pętla 08,3,D32A00,F5F5F5
+910311,1,47,Dworaka targ 01 - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910312,1,34,Zajezdnia MPK - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+910313,1,19,Zajezdnia MPK - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+910314,1,18,Bardowskiego 04 - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+910315,1,35,Trembeckiego ZTM pętla 01 - Bardowskiego 02,3,D32A00,F5F5F5
+910316,1,13,Zajezdnia MPK - Lwowska szpital pętla 02,3,D32A00,F5F5F5
+910317,1,51,Piłsudskiego U. Marszałkowski 07 - Bardowskiego 01,3,D32A00,F5F5F5
+910318,1,N2,Bardowskiego 04 - Dworzec Główny PKP 01,3,31285F,D6D4DF
+910319,1,32,Dworzec Lokalny - Obr. Poczty Gdańskiej pętla 08,3,D32A00,F5F5F5
+910320,1,41,Lubelska Zajezdnia MPK - Bardowskiego 01,3,D32A00,F5F5F5
+910321,1,20,Dworaka targ 01 - Bardowskiego 03,3,D32A00,F5F5F5
+910322,1,54,Miłocińska pętla 01 - Bardowskiego 03,3,D32A00,F5F5F5
+910323,1,17,Przemysłowa U. Celny 05 nż - Lubelska Zajezdnia MPK,3,D32A00,F5F5F5
+910324,1,35,Cienista cmentarz 04 - Bardowskiego 02,3,D32A00,F5F5F5

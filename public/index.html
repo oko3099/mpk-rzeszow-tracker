@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPK Rzeszów – Live Tracker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080b10;color:#e2e8f0;font-family:system-ui,sans-serif;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+
+#hdr{height:48px;min-height:48px;background:#0d1117;border-bottom:1px solid #1a2030;display:flex;align-items:center;padding:0 14px;gap:12px;flex-shrink:0}
+#logo{font-size:1.2rem;font-weight:900;letter-spacing:3px;color:#f97316}
+#logo b{color:#fbbf24}
+.sep{width:1px;height:22px;background:#1a2030}
+#dot{width:8px;height:8px;border-radius:50%;background:#4b5563;transition:.3s}
+#dot.ok{background:#22c55e;animation:bl 2s infinite}
+#dot.err{background:#ef4444}
+#dot.load{background:#eab308;animation:bl .5s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.2}}
+#ltxt{font-size:.68rem;font-family:monospace;color:#9ca3af}
+#hstats{font-size:.63rem;font-family:monospace;color:#4b5563;display:flex;gap:14px}
+#hstats b{color:#e2e8f0}
+#hstats b.red{color:#ef4444}
+#hright{margin-left:auto;display:flex;align-items:center;gap:10px}
+#cd{font-size:.6rem;font-family:monospace;color:#4b5563}
+#btnR{border:1px solid #1a2030;background:none;color:#4b5563;font-size:.62rem;font-family:monospace;padding:4px 12px;cursor:pointer;text-transform:uppercase;letter-spacing:1px}
+#btnR:hover{border-color:#f97316;color:#f97316}
+#btnR:disabled{opacity:.4;cursor:default}
+
+#main{display:flex;flex:1;min-height:0}
+
+#side{width:295px;min-width:295px;background:#0d1117;border-right:1px solid #1a2030;display:flex;flex-direction:column;overflow:hidden}
+#filters{padding:9px;border-bottom:1px solid #1a2030;flex-shrink:0}
+#filters input{width:100%;display:block;margin-bottom:6px;background:#080b10;border:1px solid #1a2030;color:#e2e8f0;font-size:.7rem;font-family:monospace;padding:5px 8px;outline:none}
+#filters input:focus{border-color:#f97316}
+#filters input::placeholder{color:#4b5563}
+#sorts{display:flex;gap:4px;margin-bottom:6px}
+.sb{flex:1;background:none;border:1px solid #1a2030;color:#4b5563;font-size:.58rem;font-family:monospace;padding:3px;cursor:pointer;text-transform:uppercase}
+.sb.on{border-color:#f97316;color:#f97316;background:rgba(249,115,22,.06)}
+#cnt{font-size:.6rem;font-family:monospace;color:#4b5563}
+#cnt b{color:#fbbf24}
+
+#vlist{flex:1;overflow-y:auto;padding:5px}
+#vlist::-webkit-scrollbar{width:3px}
+#vlist::-webkit-scrollbar-thumb{background:#1a2030}
+
+/* VEHICLE CARD */
+.vc{border:1px solid #1a2030;border-left:3px solid #2a3040;background:#080b10;padding:7px 9px;margin-bottom:4px;cursor:pointer;transition:background .1s}
+.vc:hover{background:#0f1520}
+.vc.sel{border-color:#fbbf24;background:#0d1000}
+.vc.late{border-left-color:#ef4444}
+.vc.minor{border-left-color:#eab308}
+.vc.ok{border-left-color:#22c55e}
+.vc.early{border-left-color:#60a5fa}
+.vc.terminus{border-left-color:#a855f7;background:#0d0a14}
+
+/* Row 1: linia + kierunek + delay */
+.vr1{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.vline{font-weight:900;font-family:monospace;font-size:1.05rem;background:#f97316;color:#fff;min-width:38px;text-align:center;padding:1px 5px;flex-shrink:0;line-height:1.45;letter-spacing:.5px}
+.vc.late .vline{background:#ef4444}
+.vc.ok .vline{background:#16a34a}
+.vc.minor .vline{background:#eab308;color:#000}
+.vc.early .vline{background:#3b82f6}
+.vc.terminus .vline{background:#a855f7}
+.vhead{font-size:.73rem;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vhead.dim{color:#4b5563;font-weight:400;font-style:italic}
+.dtag{font-size:.57rem;font-family:monospace;font-weight:700;padding:1px 5px;flex-shrink:0;white-space:nowrap}
+.dtag.late{color:#ef4444;background:rgba(239,68,68,.12)}
+.dtag.ok{color:#22c55e;background:rgba(34,197,94,.1)}
+.dtag.minor{color:#eab308;background:rgba(234,179,8,.1)}
+.dtag.early{color:#60a5fa;background:rgba(96,165,250,.1)}
+/* Pętla tag */
+.ptag{font-size:.55rem;font-family:monospace;font-weight:700;padding:1px 6px;background:rgba(168,85,247,.15);color:#a855f7;flex-shrink:0;white-space:nowrap;border:1px solid rgba(168,85,247,.25)}
+
+/* Row 2: tabor + model */
+.vr2{display:flex;align-items:baseline;gap:8px;margin-bottom:2px}
+.vtabor{font-size:.67rem;font-family:monospace;color:#9ca3af;font-weight:600}
+.vmodel{font-size:.63rem;color:#6b7280;font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Row 3: speed + status */
+.vr3{font-size:.6rem;font-family:monospace;color:#4b5563;display:flex;gap:10px}
+.vr3 b{color:#9ca3af}
+.vr3 .red{color:#ef4444}
+.vbrig{font-size:.6rem;font-family:monospace;color:#3b82f6;background:rgba(59,130,246,.1);padding:1px 5px;flex-shrink:0;margin-left:auto}
+
+#emsg{display:flex;flex-direction:column;align-items:center;justify-content:center;height:180px;gap:8px;font-size:.7rem;font-family:monospace;color:#4b5563;text-align:center;padding:16px;line-height:1.7}
+#emsg .ico{font-size:2rem;opacity:.35}
+
+/* MAP */
+#mapwrap{flex:1;position:relative;overflow:hidden}
+#map{position:absolute;top:0;left:0;right:0;bottom:0}
+.leaflet-tile{filter:brightness(.42) saturate(.5) hue-rotate(15deg)}
+.leaflet-control-zoom a{background:#0d1117!important;border-color:#1a2030!important;color:#9ca3af!important}
+.leaflet-control-attribution{background:rgba(8,11,16,.85)!important;color:#4b5563!important;font-size:.5rem!important}
+.leaflet-popup-content-wrapper{background:#0d1117!important;border:1px solid #1a2030!important;border-radius:2px!important;color:#e2e8f0!important;box-shadow:0 4px 24px rgba(0,0,0,.95)!important}
+.leaflet-popup-tip{background:#0d1117!important}
+.leaflet-popup-content{margin:12px 14px!important;min-width:220px}
+
+/* BUS MARKERS */
+.bm{width:40px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:4px;background:#f97316;border:2px solid rgba(255,255,255,.9);box-shadow:0 2px 10px rgba(0,0,0,.8);position:relative;cursor:pointer}
+.bm.late{background:#ef4444}
+.bm.ok{background:#16a34a}
+.bm.minor{background:#eab308}
+.bm.early{background:#3b82f6}
+.bm.terminus{background:#a855f7}
+.bm-line{font-size:.82rem;font-weight:900;color:#fff;font-family:monospace;line-height:1.1;letter-spacing:.5px}
+.bm.minor .bm-line{color:#000}
+.bm-ico{font-size:.55rem;line-height:1}
+.bm-p{font-size:.45rem;line-height:1;color:rgba(255,255,255,.8);letter-spacing:.5px;text-transform:uppercase}
+.bm::after{content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top:7px solid #f97316}
+.bm.late::after{border-top-color:#ef4444}
+.bm.ok::after{border-top-color:#16a34a}
+.bm.minor::after{border-top-color:#eab308}
+.bm.early::after{border-top-color:#3b82f6}
+.bm.terminus::after{border-top-color:#a855f7}
+
+/* POPUP */
+.pop-line{font-size:2rem;font-weight:900;color:#f97316;font-family:monospace;line-height:1}
+.pop-line.terminus{color:#a855f7}
+.pop-head{font-size:.82rem;font-weight:700;margin:2px 0 1px;color:#fff}
+.pop-model{font-size:.67rem;color:#6b7280;margin-bottom:7px;font-style:italic}
+.pop-terminus{display:inline-block;font-size:.62rem;font-family:monospace;font-weight:700;color:#a855f7;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.3);padding:1px 8px;margin-bottom:7px}
+.ptbl{font-size:.63rem;font-family:monospace;border-collapse:collapse;width:100%}
+.ptbl td{padding:2px 0}
+.ptbl td:first-child{color:#6b7280;padding-right:10px;white-space:nowrap}
+.ptbl td:last-child{color:#e2e8f0;font-weight:600}
+.cl{color:#ef4444!important}.cm{color:#eab308!important}.co{color:#22c55e!important}.ce{color:#60a5fa!important}
+
+#leg{position:absolute;bottom:18px;right:10px;background:rgba(8,11,16,.92);border:1px solid #1a2030;padding:8px 12px;z-index:700;font-size:.6rem;font-family:monospace;line-height:2;pointer-events:none}
+.li{display:flex;align-items:center;gap:7px}
+.ld{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(60px);opacity:0;transition:.25s;background:#0d1117;border:1px solid #1a2030;border-top:2px solid #f97316;padding:8px 18px;font-size:.67rem;font-family:monospace;color:#e2e8f0;z-index:9999;pointer-events:none;max-width:400px;text-align:center}
+#toast.show{transform:translateX(-50%);opacity:1}
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <div id="logo">MPK<b>.</b>RZ</div>
+  <div class="sep"></div>
+  <div id="dot"></div><span id="ltxt">Inicjalizacja...</span>
+  <div class="sep"></div>
+  <div id="hstats">
+    <span>Pojazdy: <b id="sc">—</b></span>
+    <span>Opóźnione: <b id="sl">—</b></span>
+    <span>Na pętli: <b id="sp" class="red">—</b></span>
+    <span>GTFS: <b id="sg">—</b></span>
+  </div>
+  <div id="hright">
+    <span id="cd"></span>
+    <button id="btnR" onclick="doRefresh()">↺ Odśwież</button>
+  </div>
+</div>
+
+<div id="main">
+  <div id="side">
+    <div id="filters">
+      <input id="fl" placeholder="🔍 Linia (np. 17, 34)..."   oninput="renderList()">
+      <input id="fh" placeholder="🔍 Kierunek / headsign..."  oninput="renderList()">
+      <input id="fm" placeholder="🔍 Model (np. Solaris)..."  oninput="renderList()">
+      <input id="ft" placeholder="🔍 Numer taborowy..."       oninput="renderList()">
+      <div id="sorts">
+        <button class="sb on" data-s="delay"   onclick="setSort(this)">Opóźn.</button>
+        <button class="sb"    data-s="line"    onclick="setSort(this)">Linia</button>
+        <button class="sb"    data-s="tabor"   onclick="setSort(this)">Tabor</button>
+        <button class="sb"    data-s="speed"   onclick="setSort(this)">Prędk.</button>
+      </div>
+      <div id="cnt">Brak danych</div>
+    </div>
+    <div id="vlist"><div id="emsg"><div class="ico">🚌</div>Ładowanie...</div></div>
+  </div>
+
+  <div id="mapwrap">
+    <div id="map"></div>
+    <div id="leg">
+      <div class="li"><div class="ld" style="background:#16a34a"></div>Na czasie</div>
+      <div class="li"><div class="ld" style="background:#eab308"></div>&lt;3 min opóźnienia</div>
+      <div class="li"><div class="ld" style="background:#ef4444"></div>&gt;3 min opóźnienia</div>
+      <div class="li"><div class="ld" style="background:#f97316"></div>Brak danych RT</div>
+      <div class="li"><div class="ld" style="background:#a855f7"></div>Na pętli</div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+'use strict';
+var vehicles=[], markers={}, sel=null, sortBy='delay', cdTimer, map;
+
+function dc(v){
+  if(v.atTerminus) return 'terminus';
+  var d=v.delay;
+  if(d==null)return '';if(d>180)return 'late';if(d>30)return 'minor';if(d<-30)return 'early';return 'ok';
+}
+function dl(d){if(d==null)return '—';var m=Math.round(d/60);if(d>30)return '+'+m+' min';if(d<-60)return m+' min';return 'Na czasie';}
+function ds(v){
+  if(v.atTerminus) return -99999; // pętla na dole sortowania opóźnień
+  return v.delay==null?-9999:v.delay;
+}
+
+function setDot(s,t){document.getElementById('dot').className=s;document.getElementById('ltxt').textContent=t;}
+var _tt;
+function toast(m){var e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){e.classList.remove('show');},3500);}
+
+function countdown(){
+  clearInterval(cdTimer);var n=15,el=document.getElementById('cd');
+  cdTimer=setInterval(function(){n--;el.textContent='za '+n+'s';if(n<=0){clearInterval(cdTimer);doRefresh();}},1000);
+}
+
+function doRefresh(){
+  var btn=document.getElementById('btnR');btn.disabled=true;setDot('load','Pobieranie...');
+  var ctrl=new AbortController(),tid=setTimeout(function(){ctrl.abort();},12000);
+  fetch('/api/vehicles',{signal:ctrl.signal})
+    .then(function(r){clearTimeout(tid);if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+    .then(function(data){
+      if(data.error)throw new Error(data.error);
+      vehicles=data.vehicles||[];
+      var late=vehicles.filter(function(v){return v.delay>180&&!v.atTerminus;}).length;
+      var term=data.atTerminus||0;
+      document.getElementById('sc').textContent=vehicles.length;
+      document.getElementById('sl').textContent=late;
+      document.getElementById('sp').textContent=term;
+      document.getElementById('sg').textContent=data.gtfsLoaded?(data.tripsInDb+' kursów'):'ładowanie...';
+      if(vehicles.length>0){
+        setDot('ok','Live · '+vehicles.length+' pojazdów');
+        toast('✓ '+vehicles.length+' autobusów | pętla: '+term);
+      } else {
+        setDot('err','Brak pojazdów');
+        toast('⚠️ Feed: '+(data.vehiclePositions||0)+' VP');
+      }
+      renderList();renderMarkers();countdown();
+    })
+    .catch(function(e){
+      clearTimeout(tid);setDot('err',e.name==='AbortError'?'Timeout':'Błąd');
+      toast('❌ '+(e.name==='AbortError'?'Timeout 12s':e.message));countdown();
+    })
+    .finally(function(){btn.disabled=false;});
+}
+
+function renderList(){
+  var fl=document.getElementById('fl').value.trim().toLowerCase();
+  var fh=document.getElementById('fh').value.trim().toLowerCase();
+  var fm=document.getElementById('fm').value.trim().toLowerCase();
+  var ft=document.getElementById('ft').value.trim().toLowerCase();
+  var list=vehicles.filter(function(v){
+    if(fl&&!(v.lineNr||v.routeId||'').toLowerCase().includes(fl))return false;
+    if(fh&&!(v.headsign||'').toLowerCase().includes(fh))return false;
+    if(fm&&!((v.brand||'')+' '+(v.model||'')).toLowerCase().includes(fm))return false;
+    if(ft&&!(v.vehicleLabel||'').toLowerCase().includes(ft))return false;
+    return true;
+  });
+  if(sortBy==='delay') list.sort(function(a,b){return ds(b)-ds(a);});
+  if(sortBy==='line')  list.sort(function(a,b){return (a.lineNr||'').localeCompare(b.lineNr||'');});
+  if(sortBy==='tabor') list.sort(function(a,b){return (a.vehicleLabel||'').localeCompare(b.vehicleLabel||'');});
+  if(sortBy==='speed') list.sort(function(a,b){return b.speed-a.speed;});
+  document.getElementById('cnt').innerHTML='Widoczne: <b>'+list.length+'</b> / '+vehicles.length;
+  if(!list.length){
+    document.getElementById('vlist').innerHTML='<div id="emsg"><div class="ico">'+(vehicles.length===0?'⏳':'🔍')+'</div>'+(vehicles.length===0?'Ładowanie...':'Brak wyników')+'</div>';
+    return;
+  }
+  document.getElementById('vlist').innerHTML=list.map(function(v){
+    var cls=dc(v);
+    var lineTxt=v.lineNr||v.routeId||'?';
+    var headTxt=v.headsign||'';
+    var modelTxt=((v.brand?v.brand+' ':'')+v.model).trim();
+    var issel=v.id===sel;
+    var termTag=v.atTerminus?'<span class="ptag">PĘTLA</span>':'';
+    var delayTag=(cls&&cls!=='terminus')?'<span class="dtag '+cls+'">'+dl(v.delay)+'</span>':'';
+    return '<div class="vc '+cls+(issel?' sel':'')+'" onclick="selectV(\''+v.id+'\')">' +
+      '<div class="vr1">' +
+        '<div class="vline">'+lineTxt+'</div>' +
+        '<div class="vhead'+(headTxt?'':' dim')+'">'+( headTxt||'Brak danych GTFS')+'</div>' +
+        termTag+delayTag+
+      '</div>' +
+      '<div class="vr2">' +
+        '<span class="vtabor">Tabor '+v.vehicleLabel+'</span>' +
+        (modelTxt?'<span class="vmodel">'+modelTxt+'</span>':'') +
+        (v.brigade?'<span class="vbrig">Bryg. '+v.brigade+'</span>':'') +
+      '</div>' +
+      '<div class="vr3">' +
+        '<span>Prędk: <b>'+(v.speed?v.speed.toFixed(0)+' km/h':'0 km/h')+'</b></span>' +
+        (v.statusLabel?'<span class="'+(v.atTerminus?'red':'')+'">'+v.statusLabel+'</span>':'') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function renderMarkers(){
+  if(!map)return;
+  var ids={};vehicles.forEach(function(v){ids[v.id]=true;});
+  Object.keys(markers).forEach(function(id){if(!ids[id]){markers[id].remove();delete markers[id];}});
+  vehicles.forEach(function(v){
+    if(!v.lat||!v.lon)return;
+    var cls=dc(v);
+    var lineTxt=v.lineNr||v.routeId||'?';
+    var termLine=v.atTerminus?'<div class="bm-p">pętla</div>':'';
+    var icon=L.divIcon({
+      className:'',
+      html:'<div class="bm '+cls+'"><div class="bm-ico">🚌</div><div class="bm-line">'+lineTxt+'</div>'+termLine+'</div>',
+      iconSize:[40,v.atTerminus?48:44],iconAnchor:[20,v.atTerminus?48:44],popupAnchor:[0,-50]
+    });
+    var cc={late:'cl',minor:'cm',ok:'co',early:'ce'}[cls]||'';
+    var modelTxt=((v.brand?v.brand+' ':'')+v.model).trim()||'Nieznany model';
+    var popup=
+      '<div class="pop-line'+(v.atTerminus?' terminus':'')+'">'+(v.lineNr||v.routeId||'?')+'</div>'+
+      '<div class="pop-head">'+(v.headsign||'Brak kierunku')+'</div>'+
+      (v.atTerminus?'<div class="pop-terminus">⬛ NA PĘTLI</div>':'')+
+      '<div class="pop-model">'+modelTxt+(v.modelNote?' <small>('+v.modelNote+')</small>':'')+'</div>'+
+      '<table class="ptbl">'+
+      '<tr><td>Nr taborowy</td><td>'+v.vehicleLabel+'</td></tr>'+
+      (v.brand?'<tr><td>Producent</td><td>'+v.brand+'</td></tr>':'')+
+      (v.model?'<tr><td>Model</td><td>'+v.model+'</td></tr>':'')+
+      '<tr><td>Brygada</td><td>'+(v.brigade||'—')+'</td></tr>'+
+      '<tr><td>Trip ID</td><td>'+(v.tripId||'—')+'</td></tr>'+
+      '<tr><td>Data kursu</td><td>'+(v.startDate||'—')+'</td></tr>'+
+      '<tr><td>Prędkość</td><td>'+v.speed.toFixed(1)+' km/h</td></tr>'+
+      '<tr><td>Kierunek</td><td>'+(v.bearing?v.bearing+'°':'—')+'</td></tr>'+
+      '<tr><td>Status</td><td>'+(v.statusLabel||'—')+'</td></tr>'+
+      '<tr><td>Opóźnienie</td><td class="'+cc+'">'+dl(v.delay)+'</td></tr>'+
+      (v.occupancy?'<tr><td>Zapełnienie</td><td>'+v.occupancy+'</td></tr>':'')+
+      '</table>';
+    if(markers[v.id]){
+      markers[v.id].setLatLng([v.lat,v.lon]).setIcon(icon);
+      if(markers[v.id].getPopup())markers[v.id].getPopup().setContent(popup);
+    }else{
+      var m=L.marker([v.lat,v.lon],{icon:icon}).bindPopup(popup,{maxWidth:270}).addTo(map);
+      m.on('click',(function(id){return function(){selectV(id);};})(v.id));
+      markers[v.id]=m;
+    }
+  });
+}
+
+function selectV(id){
+  sel=id;
+  var v=vehicles.find(function(x){return x.id===id;});
+  if(v&&v.lat&&map){map.flyTo([v.lat,v.lon],16,{duration:0.6});if(markers[id])markers[id].openPopup();}
+  renderList();
+  setTimeout(function(){var c=document.querySelector('.vc.sel');if(c)c.scrollIntoView({behavior:'smooth',block:'center'});},100);
+}
+function setSort(btn){sortBy=btn.dataset.s;document.querySelectorAll('.sb').forEach(function(b){b.classList.toggle('on',b===btn);});renderList();}
+
+map=L.map('map').setView([50.0413,21.999],13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:19}).addTo(map);
+doRefresh();
+</script>
+</body>
+</html>

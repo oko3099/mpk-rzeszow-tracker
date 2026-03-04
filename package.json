@@ -1,0 +1,14 @@
+{
+  "name": "mpk-rzeszow-tracker",
+  "version": "1.0.0",
+  "description": "Live tracker autobusów MPK Rzeszów – GTFS Realtime",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev":   "node --watch server.js"
+  },
+  "keywords": ["gtfs", "realtime", "mpk", "rzeszow", "bus"],
+  "author": "",
+  "license": "MIT",
+  "engines": { "node": ">=18" }
+}
