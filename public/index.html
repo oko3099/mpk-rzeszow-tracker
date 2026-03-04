@@ -61,7 +61,7 @@ html,body{height:100%;width:100%;overflow:hidden;background:#080b10;color:#e2e8f
     position:static!important;height:auto!important;
   }
   #panel-map{
-    flex:1;position:relative!important;
+    flex:1;position:relative!important;display:block!important;visibility:visible!important;
     top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;
     visibility:visible!important;pointer-events:auto!important;
     height:auto!important;
@@ -83,6 +83,7 @@ html,body{height:100%;width:100%;overflow:hidden;background:#080b10;color:#e2e8f
   #panel-map.on,#panel-list.on{
     visibility:visible;pointer-events:auto;z-index:2;
   }
+  #panel-map.on{position:fixed;top:74px;left:0;right:0;bottom:50px}
   #panel-map{display:block}
   #panel-list{display:flex;flex-direction:column;background:#0d1117;overflow:hidden}
   #leg{display:none}
@@ -91,7 +92,6 @@ html,body{height:100%;width:100%;overflow:hidden;background:#080b10;color:#e2e8f
 
 /* ── MAP ── */
 #map{width:100%;height:100%}
-#panel-map{position:relative}
 
 /* ── LEGENDA ── */
 #leg{
@@ -170,13 +170,13 @@ html,body{height:100%;width:100%;overflow:hidden;background:#080b10;color:#e2e8f
 .leaflet-popup-close-button{color:#6b7280!important;font-size:20px!important;padding:5px 8px!important}
 
 /* ── MARKERS ── */
-.bm{width:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:5px;background:#f97316;border:2px solid rgba(255,255,255,.95);box-shadow:0 2px 14px rgba(0,0,0,.85);position:relative;cursor:pointer;padding:3px 5px;gap:1px}
+.bm{width:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:5px;background:#f97316;border:2px solid rgba(255,255,255,.95);box-shadow:0 2px 14px rgba(0,0,0,.85);position:relative;cursor:pointer;padding:3px 5px;gap:1px}
 .bm.late{background:#ef4444}.bm.ok{background:#16a34a}.bm.minor{background:#eab308}.bm.early{background:#3b82f6}.bm.terminus{background:#a855f7}
 .bm-line{font-size:1.25rem;font-weight:900;color:#fff;font-family:monospace;line-height:1.1;white-space:nowrap}
 .bm.minor .bm-line{color:#000}
-.bm-head{font-size:.62rem;color:rgba(255,255,255,.95);font-family:monospace;line-height:1.2;white-space:nowrap;overflow:hidden;max-width:64px;text-align:center;text-overflow:ellipsis}
+.bm-head{font-size:.6rem;color:rgba(255,255,255,.95);font-family:monospace;line-height:1.2;white-space:nowrap;overflow:hidden;max-width:68px;text-align:center;text-overflow:ellipsis}
 .bm.minor .bm-head{color:rgba(0,0,0,.8)}
-.bm-brig{font-size:.6rem;color:rgba(255,255,255,.85);font-family:monospace;line-height:1.2;white-space:nowrap;overflow:hidden;max-width:64px;text-align:center}
+.bm-brig{font-size:.6rem;color:rgba(255,255,255,.85);font-family:monospace;line-height:1.2;white-space:nowrap;overflow:hidden;max-width:68px;text-align:center}
 .bm.minor .bm-brig{color:rgba(0,0,0,.7)}
 .bm-delay{font-size:.65rem;font-weight:700;font-family:monospace;line-height:1.1;white-space:nowrap}
 .bm-delay.late{color:#ffd0d0}
@@ -281,7 +281,7 @@ function showTab(t, fromMap) {
   document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('on');});
   var tabEl = document.getElementById('tab-'+(t==='srch'?'srch':t==='list'?'list':'map'));
   if(tabEl) tabEl.classList.add('on');
-  if(t==='map'){ setTimeout(function(){if(map)map.invalidateSize();},50); }
+  if(t==='map'){ setTimeout(function(){if(map)map.invalidateSize();},50); setTimeout(function(){if(map)map.invalidateSize();},300); }
   if(t==='srch'){ setTimeout(function(){document.getElementById('fl').focus();},150); }
   // Pokaż/ukryj przycisk powrotu
   cameFromMap = !!fromMap;
@@ -419,7 +419,7 @@ function renderMarkers(){
     var dShort=dlShort(v.delay);
     // Marker: linia + brygada + opóźnienie + strzałka kierunku
     // Skróć headsign do ~10 znaków na marker
-    var hShort=v.headsign?(v.headsign.length>10?v.headsign.substring(0,9)+'…':v.headsign):'';
+    var hShort=v.headsign?(v.headsign.length>15?v.headsign.substring(0,14)+'…':v.headsign):'';
     var markerH = v.atTerminus?82 : (hShort?82:66);
     var markerHtml=
       '<div class="bm '+cls+'" style="height:'+markerH+'px">'+
@@ -433,8 +433,8 @@ function renderMarkers(){
     var icon=L.divIcon({
       className:'',
       html:markerHtml,
-      iconSize:[68,markerH],
-      iconAnchor:[34,markerH],
+      iconSize:[72,markerH],
+      iconAnchor:[36,markerH],
       popupAnchor:[0,-(markerH+4)]
     });
     var cc={late:'cl',minor:'cm',ok:'co',early:'ce'}[cls]||'';
@@ -494,8 +494,10 @@ map=L.map('map',{zoomControl:true}).setView([50.0413,21.999],13);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:19
 }).addTo(map);
-setTimeout(function(){map.invalidateSize();},150);
 showTab('map');
+setTimeout(function(){if(map)map.invalidateSize();},100);
+setTimeout(function(){if(map)map.invalidateSize();},400);
+setTimeout(function(){if(map)map.invalidateSize();},800);
 doRefresh();
 </script>
 </body>
