@@ -152,7 +152,7 @@ html,body{height:100%;width:100%;overflow:hidden;background:#080b10;color:#e2e8f
 /* DESKTOP OVERRIDE */
 @media(min-width:641px){
   #tabs{display:none}
-  #panel-map,#panel-list{position:static;display:block!important;bottom:auto;top:auto}
+  #panel-map,#panel-list{position:static;display:block!important;visibility:visible!important;pointer-events:auto!important;bottom:auto;top:auto;z-index:auto}
   #panel-list{display:flex!important;flex-direction:column;width:295px;min-width:295px;border-right:1px solid #1a2030;height:calc(100vh - 74px)}
   body{display:flex;flex-direction:column}
   #sbar{display:flex}
@@ -205,7 +205,6 @@ html,body{height:100%;width:100%;overflow:hidden;background:#080b10;color:#e2e8f
         <button class="sb on" data-s="delay" onclick="setSort(this)">Opóźn.</button>
         <button class="sb"    data-s="line"  onclick="setSort(this)">Linia</button>
         <button class="sb"    data-s="tabor" onclick="setSort(this)">Tabor</button>
-        <button class="sb"    data-s="speed" onclick="setSort(this)">Prędk.</button>
       </div>
       <div id="cnt">Brak danych</div>
     </div>
@@ -326,10 +325,7 @@ function renderList(){
         (modelTxt?'<span class="vmodel">'+modelTxt+'</span>':'')+
         (v.brigade?'<span class="vbrig">Bryg. '+v.brigade+'</span>':'')+
       '</div>'+
-      '<div class="vr3">'+
-        '<span>Prędk: <b>'+(v.speed?v.speed.toFixed(0)+' km/h':'0 km/h')+'</b></span>'+
-        (v.statusLabel?'<span class="'+(v.atTerminus?'red':'')+'">'+v.statusLabel+'</span>':'')+
-      '</div>'+
+      (v.statusLabel?'<div class="vr3"><span class="'+(v.atTerminus?'red':'')+'">'+v.statusLabel+'</span></div>':'')+
     '</div>';
   }).join('');
 }
@@ -359,7 +355,6 @@ function renderMarkers(){
       (v.brand?'<tr><td>Producent</td><td>'+v.brand+'</td></tr>':'')+
       (v.model?'<tr><td>Model</td><td>'+v.model+'</td></tr>':'')+
       '<tr><td>Brygada</td><td>'+(v.brigade||'—')+'</td></tr>'+
-      '<tr><td>Prędkość</td><td>'+v.speed.toFixed(1)+' km/h</td></tr>'+
       '<tr><td>Status</td><td>'+(v.statusLabel||'—')+'</td></tr>'+
       '<tr><td>Opóźnienie</td><td class="'+cc+'">'+dl(v.delay)+'</td></tr>'+
       (v.occupancy?'<tr><td>Zapełnienie</td><td>'+v.occupancy+'</td></tr>':'')+
