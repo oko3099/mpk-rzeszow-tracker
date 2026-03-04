@@ -451,7 +451,7 @@ function renderMarkers(){
       html:markerHtml,
       iconSize:[mW,mH],
       iconAnchor:[mW/2,mH],
-      popupAnchor:[0,-(markerH+4)]
+      popupAnchor:[0,-(mH+4)]
     });
     var cc={late:'cl',minor:'cm',ok:'co',early:'ce'}[cls]||'';
     var modelTxt=((v.brand?v.brand+' ':'')+v.model).trim()||'Nieznany model';
