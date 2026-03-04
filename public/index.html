@@ -204,6 +204,7 @@ html,body{height:100%;width:100%;overflow:hidden;background:#080b10;color:#e2e8f
 /* ── TOAST ── */
 #toast{position:fixed;bottom:60px;left:50%;transform:translateX(-50%) translateY(80px);opacity:0;transition:.2s;background:#0d1117;border:1px solid #1a2030;border-top:2px solid #f97316;padding:8px 18px;font-size:.67rem;font-family:monospace;color:#e2e8f0;z-index:9999;pointer-events:none;max-width:88vw;text-align:center;border-radius:2px}
 #toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
 </style>
 </head>
 <body>
@@ -420,21 +421,36 @@ function renderMarkers(){
     // Marker: linia + brygada + opóźnienie + strzałka kierunku
     // Skróć headsign do ~10 znaków na marker
     var hShort=v.headsign?(v.headsign.length>15?v.headsign.substring(0,14)+'…':v.headsign):'';
-    var markerH = v.atTerminus?82 : (hShort?82:66);
+    var mob=window.innerWidth<=640;
+    // Mobile: małe markery, desktop: duże
+    var mW  = mob ? 38  : 72;
+    var mFS = mob ? 11  : 20;   // font-size linia px
+    var mFS2= mob ? 7   : 10;   // font-size reszta px
+    var mH  = mob ? (v.atTerminus?44:(hShort?42:32)) : (v.atTerminus?82:(hShort?82:66));
+    var mPad= mob ? '1px 2px' : '3px 5px';
+    var mMW = mob ? 34  : 68;   // max-width tekstu
+    var mArr= mob ? 10  : 14;   // strzałka px
+
+    var bStyle='width:'+mW+'px;height:'+mH+'px;padding:'+mPad+';gap:0px;';
+    var lineStyle='font-size:'+mFS+'px;font-weight:900;color:#fff;font-family:monospace;line-height:1.1;white-space:nowrap;'+(cls==='minor'?'color:#000;':'');
+    var subStyle='font-size:'+mFS2+'px;font-family:monospace;line-height:1.2;overflow:hidden;max-width:'+mMW+'px;text-align:center;text-overflow:ellipsis;white-space:nowrap;color:rgba(255,255,255,.9);'+(cls==='minor'?'color:rgba(0,0,0,.75);':'');
+    var delayColor=v.delay>0?'#ffd0d0':'#c8f0ff';
+    if(cls==='minor') delayColor=v.delay>0?'#7a0000':'#00407a';
+
     var markerHtml=
-      '<div class="bm '+cls+'" style="height:'+markerH+'px">'+
-        (v.bearing?bearingArrow(v.bearing):'')+
-        '<div class="bm-line">'+lineTxt+'</div>'+
-        (hShort?'<div class="bm-head">'+hShort+'</div>':'')+
-        (v.brigade?'<div class="bm-brig">'+v.brigade+'</div>':'')+
-        (dShort?'<div class="bm-delay '+(v.delay>0?'late':'early')+'"'+'>'+dShort+'</div>':'')+
-        (v.atTerminus?'<div class="bm-p">pętla</div>':'')+
+      '<div class="bm '+cls+'" style="'+bStyle+'">'+
+        (v.bearing?'<div style="font-size:'+mArr+'px;line-height:1;transform:rotate('+v.bearing+'deg);transform-origin:center">↑</div>':'')+
+        '<div style="'+lineStyle+'">'+lineTxt+'</div>'+
+        (hShort?'<div style="'+subStyle+'">'+hShort+'</div>':'')+
+        (v.brigade?'<div style="'+subStyle+'">'+v.brigade+'</div>':'')+
+        (dShort?'<div style="'+subStyle+'font-weight:700;color:'+delayColor+';">'+dShort+'</div>':'')+
+        (v.atTerminus?'<div style="font-size:'+(mob?6:9)+'px;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.5px;font-weight:700;">pętla</div>':'')+
       '</div>';
     var icon=L.divIcon({
       className:'',
       html:markerHtml,
-      iconSize:[72,markerH],
-      iconAnchor:[36,markerH],
+      iconSize:[mW,mH],
+      iconAnchor:[mW/2,mH],
       popupAnchor:[0,-(markerH+4)]
     });
     var cc={late:'cl',minor:'cm',ok:'co',early:'ce'}[cls]||'';
