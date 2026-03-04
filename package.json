@@ -5,10 +5,21 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev":   "node --watch server.js"
+    "dev": "node --watch server.js"
   },
-  "keywords": ["gtfs", "realtime", "mpk", "rzeszow", "bus"],
+  "keywords": [
+    "gtfs",
+    "realtime",
+    "mpk",
+    "rzeszow",
+    "bus"
+  ],
   "author": "",
   "license": "MIT",
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
+  }
 }

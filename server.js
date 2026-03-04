@@ -7,9 +7,8 @@ const path  = require('path');
 const url   = require('url');
 const zlib  = require('zlib');
 
-const JSZIP_PATH = '/home/claude/.npm-global/lib/node_modules/docx/node_modules/jszip';
 let JSZip;
-try { JSZip = require(JSZIP_PATH); } catch(e) { console.warn('[warn] JSZip niedostępny:', e.message); }
+try { JSZip = require('jszip'); } catch(e) { console.warn('[warn] JSZip niedostępny:', e.message); }
 
 const { buildVehicleDb } = require('./vehicledb');
 
