@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rozkład jazdy – MPK Rzeszów</title>
+  <meta name="description" content="Rozkład jazdy autobusów MPK Rzeszów – godziny odjazdów, przystanki, kierunki.">
+  <link rel="stylesheet" href="schedule.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="back-btn">← Mapa na żywo</a>
+      <div class="logo">
+        <span class="logo-icon">🚌</span>
+        <div>
+          <div class="logo-title">MPK Rzeszów</div>
+          <div class="logo-sub">Rozkład jazdy</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="lines">🛣️ Linie</button>
+    <button class="tab" data-tab="stops">📍 Przystanki</button>
+  </div>
+
+  <!-- ── LINIE ── -->
+  <div id="tab-lines" class="tab-content active">
+    <div class="search-box">
+      <input type="text" id="search-lines" placeholder="🔍 Szukaj linii...">
+    </div>
+    <div id="lines-grid" class="lines-grid"></div>
+
+    <!-- kierunek -->
+    <div id="variants-panel" class="panel hidden">
+      <div class="panel-header">
+        <button class="back" id="back-to-lines">← Linie</button>
+        <span class="line-badge" id="variant-line-nr"></span>
+        <span class="panel-title">Wybierz kierunek</span>
+      </div>
+      <div id="variants-list"></div>
+    </div>
+
+    <!-- przystanki na trasie -->
+    <div id="stops-panel" class="panel hidden">
+      <div class="panel-header">
+        <button class="back" id="back-to-variants">← Kierunki</button>
+        <span class="line-badge" id="stops-line-nr"></span>
+        <span class="panel-title" id="stops-variant-name"></span>
+      </div>
+      <div id="stops-list"></div>
+    </div>
+
+    <!-- rozkład godzinowy -->
+    <div id="timetable-panel" class="panel hidden">
+      <div class="panel-header">
+        <button class="back" id="back-to-stops">← Przystanki</button>
+        <span class="line-badge" id="tt-line-nr"></span>
+        <div class="tt-info">
+          <div class="tt-stop-name" id="tt-stop-name"></div>
+          <div class="tt-variant" id="tt-variant"></div>
+        </div>
+      </div>
+      <div id="timetable-grid"></div>
+    </div>
+  </div>
+
+  <!-- ── PRZYSTANKI ── -->
+  <div id="tab-stops" class="tab-content hidden">
+    <div class="search-box">
+      <input type="text" id="search-stops" placeholder="🔍 Szukaj przystanku...">
+    </div>
+    <div id="stops-count" class="count-label"></div>
+    <div id="stops-all-list"></div>
+
+    <!-- odjazdy z przystanku -->
+    <div id="departures-panel" class="panel hidden">
+      <div class="panel-header">
+        <button class="back" id="back-to-stops-list">← Przystanki</button>
+        <span class="panel-title" id="dep-stop-name"></span>
+      </div>
+      <div id="departures-list"></div>
+    </div>
+  </div>
+
+  <div id="loading" class="loading hidden">
+    <div class="spinner"></div>
+    <div>Ładowanie...</div>
+  </div>
+
+  <script src="schedule.js"></script>
+</body>
+</html>
