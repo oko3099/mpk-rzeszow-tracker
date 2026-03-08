@@ -17,8 +17,12 @@ const GTFS_RT  = 'https://www.mpkrzeszow.pl/gtfs/rt/gtfsrt.pb';
 const GTFS_ZIP = 'https://www.mpkrzeszow.pl/gtfs/latest.zip';
 const DEBUG    = process.env.DEBUG === '1';
 
-let tripMap   = {};   // tripId  → { routeId, headsign }
+let tripMap   = {};   // tripId  → { routeId, headsign, serviceId }
 let routeMap  = {};   // routeId → { shortName }
+let stopMap   = {};   // stopId  → { name, lat, lon }
+let stopTimes = {};   // stopId  → [ { tripId, departure, stopSeq } ]
+let tripStops = {};   // tripId  → [ { stopId, departure, stopSeq } ]
+let serviceIds= new Set();
 let vehicleDb = buildVehicleDb();
 let gtfsLoaded    = false;
 let gtfsLoadedAt  = 0;
@@ -182,11 +186,9 @@ function parseCSV(text) {
   });
 }
 
-function loadGTFSFromFiles(tripsPath, routesPath) {
-  // Ładuj z lokalnych plików CSV (trips.txt, routes.txt)
+function loadGTFSFromFiles(tripsPath, routesPath, stopsPath, stopTimesPath, calendarPath) {
   const tripsText  = fs.readFileSync(tripsPath,  'utf8');
   const routesText = fs.readFileSync(routesPath, 'utf8');
-
   const tripsRows  = parseCSV(tripsText);
   const routesRows = parseCSV(routesText);
 
@@ -198,30 +200,87 @@ function loadGTFSFromFiles(tripsPath, routesPath) {
 
   for(const r of tripsRows)
     if(r.trip_id) tripMap[r.trip_id] = {
-      routeId:  r.route_id       || '',
-      headsign: r.trip_headsign  || '',
-      brigade:  r.brigade        || '',
+      routeId:   r.route_id      || '',
+      headsign:  r.trip_headsign || '',
+      brigade:   r.brigade       || '',
+      serviceId: r.service_id    || '',
     };
+
+  // Stops
+  if(stopsPath && fs.existsSync(stopsPath)) {
+    const stopsRows = parseCSV(fs.readFileSync(stopsPath, 'utf8'));
+    stopMap = {};
+    for(const r of stopsRows)
+      if(r.stop_id) stopMap[r.stop_id] = {
+        name: r.stop_name || '',
+        lat:  parseFloat(r.stop_lat) || 0,
+        lon:  parseFloat(r.stop_lon) || 0,
+      };
+    console.log(`[gtfs] Stops: ${Object.keys(stopMap).length}`);
+  }
+
+  // Stop times
+  if(stopTimesPath && fs.existsSync(stopTimesPath)) {
+    const stRows = parseCSV(fs.readFileSync(stopTimesPath, 'utf8'));
+    stopTimes = {};
+    tripStops = {};
+    for(const r of stRows) {
+      if(!r.trip_id || !r.stop_id) continue;
+      const dep = r.departure_time || r.arrival_time || '';
+      const seq = parseInt(r.stop_sequence) || 0;
+      if(!stopTimes[r.stop_id]) stopTimes[r.stop_id] = [];
+      stopTimes[r.stop_id].push({ tripId: r.trip_id, departure: dep, stopSeq: seq });
+      if(!tripStops[r.trip_id]) tripStops[r.trip_id] = [];
+      tripStops[r.trip_id].push({ stopId: r.stop_id, departure: dep, stopSeq: seq });
+    }
+    for(const tid of Object.keys(tripStops))
+      tripStops[tid].sort((a,b) => a.stopSeq - b.stopSeq);
+    console.log(`[gtfs] StopTimes: ${Object.keys(stopTimes).length} przystanków`);
+  }
+
+  // Calendar
+  if(calendarPath && fs.existsSync(calendarPath)) {
+    updateActiveServices(calendarPath);
+  }
 
   gtfsLoaded   = true;
   gtfsLoadedAt = Date.now();
-  console.log(`[gtfs] Załadowano z plików: ${tripsRows.length} kursów, ${routesRows.length} linii`);
-  const sample = Object.entries(tripMap).find(([,d])=>d.headsign);
-  if(sample){
-    const ln = routeMap[sample[1].routeId]?.shortName || sample[1].routeId;
-    console.log(`[gtfs] Przykład: trip=${sample[0]} → linia=${ln} "${sample[1].headsign}" brygada=${sample[1].brigade}`);
-  }
+  console.log(`[gtfs] Załadowano: ${tripsRows.length} kursów, ${routesRows.length} linii`);
 }
+
+function updateActiveServices(calendarPath) {
+  try {
+    const rows = parseCSV(fs.readFileSync(calendarPath, 'utf8'));
+    const now = new Date();
+    const dayNames = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+    const todayDay = dayNames[now.getDay()];
+    const todayStr = now.toISOString().slice(0,10).replace(/-/g,'');
+    serviceIds = new Set();
+    for(const r of rows) {
+      if(!r.service_id) continue;
+      if(r[todayDay] !== '1') continue;
+      const start = r.start_date || '0';
+      const end   = r.end_date   || '99999999';
+      if(todayStr >= start && todayStr <= end) serviceIds.add(r.service_id);
+    }
+    console.log(`[gtfs] Aktywne service_id: ${serviceIds.size}`);
+  } catch(e) { console.warn('[gtfs] calendar err:', e.message); }
+}
+
 
 async function loadGTFSStatic() {
   if(gtfsLoaded && Date.now()-gtfsLoadedAt < GTFS_TTL) return;
 
   // 1. Najpierw spróbuj z lokalnych plików (szybkie, niezawodne)
-  const localTrips  = path.join(__dirname, 'gtfs_trips.txt');
-  const localRoutes = path.join(__dirname, 'gtfs_routes.txt');
+  const localTrips     = path.join(__dirname, 'gtfs_trips.txt');
+  const localRoutes    = path.join(__dirname, 'gtfs_routes.txt');
+  const localStops     = path.join(__dirname, 'gtfs_stops.txt');
+  const localStopTimes = path.join(__dirname, 'gtfs_stop_times.txt');
+  const localCalendar  = path.join(__dirname, 'gtfs_calendar.txt');
+
   if(fs.existsSync(localTrips) && fs.existsSync(localRoutes)) {
     try {
-      loadGTFSFromFiles(localTrips, localRoutes);
+      loadGTFSFromFiles(localTrips, localRoutes, localStops, localStopTimes, localCalendar);
     } catch(e) {
       console.error('[gtfs] Błąd ładowania plików lokalnych:', e.message);
     }
@@ -235,14 +294,21 @@ async function loadGTFSStatic() {
         const zipBuf = await fetchBuffer(GTFS_ZIP);
         const zip    = await JSZip.loadAsync(zipBuf);
 
-        const tripsFile  = zip.file('trips.txt');
-        const routesFile = zip.file('routes.txt');
+        const tripsFile     = zip.file('trips.txt');
+        const routesFile    = zip.file('routes.txt');
+        const stopsFile     = zip.file('stops.txt');
+        const stopTimesFile = zip.file('stop_times.txt');
+        const calendarFile  = zip.file('calendar.txt');
+
         if(tripsFile && routesFile){
           const tripsText  = await tripsFile.async('string');
           const routesText = await routesFile.async('string');
           fs.writeFileSync(localTrips,  tripsText,  'utf8');
           fs.writeFileSync(localRoutes, routesText, 'utf8');
-          loadGTFSFromFiles(localTrips, localRoutes);
+          if(stopsFile)     fs.writeFileSync(localStops,     await stopsFile.async('string'),     'utf8');
+          if(stopTimesFile) fs.writeFileSync(localStopTimes, await stopTimesFile.async('string'), 'utf8');
+          if(calendarFile)  fs.writeFileSync(localCalendar,  await calendarFile.async('string'),  'utf8');
+          loadGTFSFromFiles(localTrips, localRoutes, localStops, localStopTimes, localCalendar);
           console.log('[gtfs] ZIP pobrany i załadowany, cache zaktualizowany');
         }
       } catch(e) {
@@ -408,6 +474,96 @@ http.createServer(async (req, res) => {
   if(pathname==='/api/reload-gtfs'){
     gtfsLoaded=false;
     loadGTFSStatic().then(()=>sendJSON(res,200,{ok:true})).catch(e=>sendJSON(res,500,{error:e.message}));
+    return;
+  }
+
+  // ── ROZKŁAD: lista przystanków ───────────────────────────────────────────
+  if(pathname==='/api/stops'){
+    const q = (parsedUrl.query.q || '').toLowerCase().trim();
+    let list = Object.entries(stopMap).map(([id,s])=>({ id, name:s.name, lat:s.lat, lon:s.lon }));
+    if(q) list = list.filter(s => s.name.toLowerCase().includes(q));
+    list.sort((a,b) => a.name.localeCompare(b.name, 'pl'));
+    sendJSON(res, 200, { stops: list.slice(0, 100) });
+    return;
+  }
+
+  // ── ROZKŁAD: odjazdy z przystanku ────────────────────────────────────────
+  if(pathname==='/api/departures'){
+    const stopId = parsedUrl.query.stop_id || '';
+    if(!stopId){ sendJSON(res,400,{error:'Brak stop_id'}); return; }
+
+    const now = new Date();
+    const nowMins = now.getHours()*60 + now.getMinutes();
+
+    const entries = (stopTimes[stopId] || []);
+    const deps = [];
+    for(const e of entries) {
+      const trip = tripMap[e.tripId];
+      if(!trip) continue;
+      // Sprawdź czy kurs aktywny dziś
+      if(serviceIds.size > 0 && !serviceIds.has(trip.serviceId)) continue;
+      const route = routeMap[trip.routeId];
+      const lineNr = route?.shortName || trip.routeId;
+      // Parsuj czas (format HH:MM:SS, może być >24h dla nocnych)
+      const parts = e.departure.split(':').map(Number);
+      if(parts.length < 2) continue;
+      const depMins = parts[0]*60 + parts[1];
+      const diffMins = depMins - nowMins;
+      deps.push({
+        tripId:    e.tripId,
+        lineNr,
+        headsign:  trip.headsign,
+        departure: e.departure,
+        depMins,
+        diffMins,
+      });
+    }
+    // Pokaż odjazdy: od -2 min do +120 min, posortowane
+    deps.sort((a,b) => a.depMins - b.depMins);
+    const filtered = deps.filter(d => d.diffMins >= -2 && d.diffMins <= 180);
+    sendJSON(res, 200, { stopId, stopName: stopMap[stopId]?.name || '', departures: filtered });
+    return;
+  }
+
+  // ── ROZKŁAD: pełny rozkład linii ─────────────────────────────────────────
+  if(pathname==='/api/schedule'){
+    const routeId = parsedUrl.query.route_id || '';
+    if(!routeId){ sendJSON(res,400,{error:'Brak route_id'}); return; }
+    const route = routeMap[routeId];
+    if(!route){ sendJSON(res,404,{error:'Nie znaleziono linii'}); return; }
+
+    // Znajdź wszystkie tripy tej linii aktywne dziś
+    const trips = Object.entries(tripMap)
+      .filter(([,t]) => t.routeId === routeId && (serviceIds.size === 0 || serviceIds.has(t.serviceId)))
+      .map(([tripId, t]) => {
+        const stops = (tripStops[tripId] || []).map(s => ({
+          stopId:    s.stopId,
+          stopName:  stopMap[s.stopId]?.name || s.stopId,
+          departure: s.departure,
+        }));
+        return { tripId, headsign: t.headsign, stops };
+      });
+
+    // Grupuj po headsign
+    const byHead = {};
+    for(const t of trips) {
+      if(!byHead[t.headsign]) byHead[t.headsign] = [];
+      byHead[t.headsign].push(t);
+    }
+
+    sendJSON(res, 200, { routeId, lineNr: route.shortName, variants: byHead });
+    return;
+  }
+
+  // ── ROZKŁAD: lista linii ─────────────────────────────────────────────────
+  if(pathname==='/api/routes'){
+    const routes = Object.entries(routeMap)
+      .map(([id,r]) => ({ id, lineNr: r.shortName }))
+      .sort((a,b) => {
+        const na = parseInt(a.lineNr)||999, nb = parseInt(b.lineNr)||999;
+        return na !== nb ? na - nb : a.lineNr.localeCompare(b.lineNr);
+      });
+    sendJSON(res, 200, { routes });
     return;
   }
   const fp = (pathname==='/'||pathname==='/index.html')
