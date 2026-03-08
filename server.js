@@ -583,10 +583,11 @@ http.createServer(async (req, res) => {
     sendJSON(res, 200, { routes });
     return;
   }
-  const fp = (pathname==='/'||pathname==='/index.html')
-    ? path.join(__dirname,'public','index.html')
-    : path.join(__dirname,'public',pathname);
-  if(!fp.startsWith(path.join(__dirname,'public'))){ res.writeHead(403); res.end('Forbidden'); return; }
+  const safePath = pathname.replace(/^\/+/, '') || 'index.html';
+  const fp = (safePath === '' || safePath === 'index.html')
+    ? path.join(__dirname, 'public', 'index.html')
+    : path.join(__dirname, 'public', safePath);
+  if (!fp.startsWith(path.join(__dirname, 'public'))) { res.writeHead(403); res.end('Forbidden'); return; }
   serveFile(res, fp);
 
 }).listen(PORT, async () => {
