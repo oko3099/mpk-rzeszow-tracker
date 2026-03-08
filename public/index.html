@@ -21,9 +21,12 @@ html,body{height:100%;width:100%;overflow:hidden;background:#f5f5f5;color:#1a1a1
 #dot.load{background:#ffe082;animation:bl .6s infinite}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.2}}
 #ltxt{font-size:.62rem;color:rgba(255,255,255,.7);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#btnR{margin-left:auto;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;font-size:.6rem;padding:5px 12px;cursor:pointer;border-radius:4px;flex-shrink:0;transition:.12s}
+#btnR{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;font-size:.6rem;padding:5px 12px;cursor:pointer;border-radius:4px;flex-shrink:0;transition:.12s}
 #btnR:active{background:rgba(255,255,255,.22)}
 #btnR:disabled{opacity:.35}
+#btnApp{margin-left:auto;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.15);color:#fff;font-size:.6rem;padding:5px 10px;border-radius:4px;flex-shrink:0;text-decoration:none;white-space:nowrap;transition:.12s;margin-right:6px}
+#btnApp:hover{background:rgba(255,255,255,.28)}
+@media(max-width:400px){#btnApp{display:none}}
 
 #sbar{height:28px;background:#cc4a00;display:flex;align-items:center;padding:0 14px;gap:16px;font-size:.6rem;color:rgba(255,255,255,.65);flex-shrink:0;z-index:10;position:relative;overflow:hidden}
 #sbar b{color:#fff;font-weight:600}
@@ -146,6 +149,7 @@ html,body{height:100%;width:100%;overflow:hidden;background:#f5f5f5;color:#1a1a1
   <div id="logo">MPK Rzeszów <span>Live</span></div>
   <div id="dot"></div>
   <span id="ltxt">Inicjalizacja...</span>
+  <a id="btnApp" href="https://github.com/oko3099/MPK-Rzeszow-Flutter-App/releases" target="_blank">📱 Android</a>
   <button id="btnR" onclick="doRefresh()">↺ Odśwież</button>
 </div>
 
