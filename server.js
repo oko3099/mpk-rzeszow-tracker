@@ -219,7 +219,7 @@ function loadGTFSFromFiles(tripsPath, routesPath, stopsPath, stopTimesPath, cale
     console.log(`[gtfs] Stops: ${Object.keys(stopMap).length}`);
   }
 
-  // Stop times
+  // Stop times - używaj tablic zamiast obiektów (mniej RAM)
   if(stopTimesPath && fs.existsSync(stopTimesPath)) {
     const stRows = parseCSV(fs.readFileSync(stopTimesPath, 'utf8'));
     stopTimes = {};
@@ -229,13 +229,13 @@ function loadGTFSFromFiles(tripsPath, routesPath, stopsPath, stopTimesPath, cale
       const dep = r.departure_time || r.arrival_time || '';
       const seq = parseInt(r.stop_sequence) || 0;
       if(!stopTimes[r.stop_id]) stopTimes[r.stop_id] = [];
-      stopTimes[r.stop_id].push({ tripId: r.trip_id, departure: dep, stopSeq: seq });
+      stopTimes[r.stop_id].push([r.trip_id, dep]);
       if(!tripStops[r.trip_id]) tripStops[r.trip_id] = [];
-      tripStops[r.trip_id].push({ stopId: r.stop_id, departure: dep, stopSeq: seq });
+      tripStops[r.trip_id].push([r.stop_id, dep, seq]);
     }
     for(const tid of Object.keys(tripStops))
-      tripStops[tid].sort((a,b) => a.stopSeq - b.stopSeq);
-    console.log(`[gtfs] StopTimes: ${Object.keys(stopTimes).length} przystanków`);
+      tripStops[tid].sort((a,b) => a[2] - b[2]);
+    console.log(`[gtfs] StopTimes: ${Object.keys(stopTimes).length} przystanków, ${Object.keys(tripStops).length} kursów`);
   }
 
   // Calendar
@@ -451,7 +451,8 @@ function serveFile(res, fp) {
 }
 
 http.createServer(async (req, res) => {
-  const { pathname } = url.parse(req.url);
+  const parsedUrl = url.parse(req.url, true);
+  const pathname  = parsedUrl.pathname;
   if(pathname==='/api/vehicles'){
     try   { sendJSON(res,200,await getVehicles()); }
     catch (e){ console.error('[API]',e.message); sendJSON(res,502,{error:e.message,vehicles:[],count:0}); }
@@ -498,23 +499,23 @@ http.createServer(async (req, res) => {
 
     const entries = (stopTimes[stopId] || []);
     const deps = [];
-    for(const e of entries) {
-      const trip = tripMap[e.tripId];
+    for(const [tripId, dep] of entries) {
+      const trip = tripMap[tripId];
       if(!trip) continue;
       // Sprawdź czy kurs aktywny dziś
       if(serviceIds.size > 0 && !serviceIds.has(trip.serviceId)) continue;
       const route = routeMap[trip.routeId];
       const lineNr = route?.shortName || trip.routeId;
       // Parsuj czas (format HH:MM:SS, może być >24h dla nocnych)
-      const parts = e.departure.split(':').map(Number);
+      const parts = dep.split(':').map(Number);
       if(parts.length < 2) continue;
       const depMins = parts[0]*60 + parts[1];
       const diffMins = depMins - nowMins;
       deps.push({
-        tripId:    e.tripId,
+        tripId,
         lineNr,
         headsign:  trip.headsign,
-        departure: e.departure,
+        departure: dep,
         depMins,
         diffMins,
       });
@@ -543,10 +544,10 @@ http.createServer(async (req, res) => {
     const trips = Object.entries(tripMap)
       .filter(([,t]) => matchingRouteIds.has(t.routeId) && (serviceIds.size === 0 || serviceIds.has(t.serviceId)))
       .map(([tripId, t]) => {
-        const stops = (tripStops[tripId] || []).map(s => ({
-          stopId:    s.stopId,
-          stopName:  stopMap[s.stopId]?.name || s.stopId,
-          departure: s.departure,
+        const stops = (tripStops[tripId] || []).map(([sid, dep]) => ({
+          stopId:    sid,
+          stopName:  stopMap[sid]?.name || sid,
+          departure: dep,
         }));
         return { tripId, headsign: t.headsign, stops };
       });
