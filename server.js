@@ -528,14 +528,20 @@ http.createServer(async (req, res) => {
 
   // ── ROZKŁAD: pełny rozkład linii ─────────────────────────────────────────
   if(pathname==='/api/schedule'){
-    const routeId = parsedUrl.query.route_id || '';
-    if(!routeId){ sendJSON(res,400,{error:'Brak route_id'}); return; }
-    const route = routeMap[routeId];
-    if(!route){ sendJSON(res,404,{error:'Nie znaleziono linii'}); return; }
+    const lineNr = parsedUrl.query.line_nr || parsedUrl.query.route_id || '';
+    if(!lineNr){ sendJSON(res,400,{error:'Brak line_nr'}); return; }
 
-    // Znajdź wszystkie tripy tej linii aktywne dziś
+    // Zbierz wszystkie route_id z tym samym numerem linii
+    const matchingRouteIds = new Set(
+      Object.entries(routeMap)
+        .filter(([,r]) => r.shortName === lineNr)
+        .map(([id]) => id)
+    );
+    if(matchingRouteIds.size === 0){ sendJSON(res,404,{error:'Nie znaleziono linii '+lineNr}); return; }
+
+    // Znajdź wszystkie tripy tych linii aktywne dziś
     const trips = Object.entries(tripMap)
-      .filter(([,t]) => t.routeId === routeId && (serviceIds.size === 0 || serviceIds.has(t.serviceId)))
+      .filter(([,t]) => matchingRouteIds.has(t.routeId) && (serviceIds.size === 0 || serviceIds.has(t.serviceId)))
       .map(([tripId, t]) => {
         const stops = (tripStops[tripId] || []).map(s => ({
           stopId:    s.stopId,
@@ -545,25 +551,34 @@ http.createServer(async (req, res) => {
         return { tripId, headsign: t.headsign, stops };
       });
 
-    // Grupuj po headsign
+    // Grupuj po headsign, sortuj po pierwszym czasie
     const byHead = {};
     for(const t of trips) {
       if(!byHead[t.headsign]) byHead[t.headsign] = [];
       byHead[t.headsign].push(t);
     }
+    for(const h of Object.keys(byHead))
+      byHead[h].sort((a,b) => (a.stops[0]?.departure||'').localeCompare(b.stops[0]?.departure||''));
 
-    sendJSON(res, 200, { routeId, lineNr: route.shortName, variants: byHead });
+    sendJSON(res, 200, { lineNr, variants: byHead });
     return;
   }
 
   // ── ROZKŁAD: lista linii ─────────────────────────────────────────────────
   if(pathname==='/api/routes'){
-    const routes = Object.entries(routeMap)
-      .map(([id,r]) => ({ id, lineNr: r.shortName }))
-      .sort((a,b) => {
-        const na = parseInt(a.lineNr)||999, nb = parseInt(b.lineNr)||999;
-        return na !== nb ? na - nb : a.lineNr.localeCompare(b.lineNr);
-      });
+    // Deduplikuj po numerze linii — jedna pozycja na numer
+    const seen = new Set();
+    const routes = [];
+    for(const [id, r] of Object.entries(routeMap)) {
+      const nr = r.shortName;
+      if(!nr || seen.has(nr)) continue;
+      seen.add(nr);
+      routes.push({ id, lineNr: nr });
+    }
+    routes.sort((a,b) => {
+      const na = parseInt(a.lineNr)||999, nb = parseInt(b.lineNr)||999;
+      return na !== nb ? na - nb : a.lineNr.localeCompare(b.lineNr);
+    });
     sendJSON(res, 200, { routes });
     return;
   }
