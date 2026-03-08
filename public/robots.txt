@@ -1,3 +1,378 @@
-User-agent: *
-Allow: /
-Sitemap: https://mpk-rzeszow-tracker.onrender.com/sitemap.xml
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MPK Rzeszów Live – Śledzenie autobusów na żywo</title>
+<meta name="description" content="Śledź autobusy MPK Rzeszów na żywo. Mapa w czasie rzeczywistym, opóźnienia, numery linii i kierunki. Bezpłatny tracker komunikacji miejskiej Rzeszów.">
+<meta name="keywords" content="MPK Rzeszów, autobusy Rzeszów, komunikacja miejska Rzeszów, rozkład jazdy Rzeszów, tracker autobusów, opóźnienia autobusów Rzeszów, linie autobusowe Rzeszów">
+<meta name="author" content="oko3099">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mpk-rzeszow-tracker.onrender.com/">
+
+<!-- Open Graph (podgląd przy udostępnianiu na Facebooku, Messengerze itp.) -->
+<meta property="og:title" content="MPK Rzeszów Live – Śledzenie autobusów na żywo">
+<meta property="og:description" content="Mapa autobusów MPK Rzeszów w czasie rzeczywistym. Sprawdź opóźnienia i pozycje pojazdów.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mpk-rzeszow-tracker.onrender.com/">
+<meta property="og:locale" content="pl_PL">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MPK Rzeszów Live">
+<meta name="twitter:description" content="Śledzenie autobusów MPK Rzeszów na żywo – mapa, opóźnienia, linie.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;width:100%;overflow:hidden;background:#f5f5f5;color:#1a1a1a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+
+/* PALETA: pomarańcz MPK #e8560a, ciemny #cc4a00, tło #f5f5f5, biel #fff, ramki #e0e0e0 */
+
+#hdr{height:48px;background:#e8560a;display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;z-index:10;position:relative}
+#logo{font-size:.95rem;font-weight:700;color:#fff;letter-spacing:.3px;white-space:nowrap;flex-shrink:0}
+#logo span{opacity:.65;font-weight:400}
+#dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);flex-shrink:0;transition:.3s}
+#dot.ok{background:#fff;animation:bl 2.5s infinite}
+#dot.err{background:#ffcdd2}
+#dot.load{background:#ffe082;animation:bl .6s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.2}}
+#ltxt{font-size:.62rem;color:rgba(255,255,255,.7);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#btnR{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;font-size:.6rem;padding:5px 12px;cursor:pointer;border-radius:4px;flex-shrink:0;transition:.12s}
+#btnR:active{background:rgba(255,255,255,.22)}
+#btnR:disabled{opacity:.35}
+#btnApp{margin-left:auto;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.15);color:#fff;font-size:.6rem;padding:5px 10px;border-radius:4px;flex-shrink:0;text-decoration:none;white-space:nowrap;transition:.12s;margin-right:6px}
+#btnApp:hover{background:rgba(255,255,255,.28)}
+#btnSchedule{border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.15);color:#fff;font-size:.6rem;padding:5px 10px;border-radius:4px;flex-shrink:0;text-decoration:none;white-space:nowrap;transition:.12s;margin-right:6px}
+#btnSchedule:hover{background:rgba(255,255,255,.28)}
+@media(max-width:400px){#btnApp{display:none}}
+
+#sbar{height:28px;background:#cc4a00;display:flex;align-items:center;padding:0 14px;gap:16px;font-size:.6rem;color:rgba(255,255,255,.65);flex-shrink:0;z-index:10;position:relative;overflow:hidden}
+#sbar b{color:#fff;font-weight:600}
+.red{color:#ffcdd2}
+#cd{margin-left:auto;color:rgba(255,255,255,.4);font-size:.57rem}
+
+#tabs{height:52px;background:#fff;border-top:2px solid #e8560a;display:flex;flex-shrink:0;z-index:10;position:relative}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;color:#9e9e9e;font-size:.52rem;letter-spacing:.3px;text-transform:uppercase;cursor:pointer;padding:0;border-top:2px solid transparent;margin-top:-2px;transition:.12s}
+.tab.on{color:#e8560a;border-top-color:#e8560a}
+.tab-ico{font-size:1.1rem;line-height:1}
+
+#back-to-map{display:none;width:100%;padding:9px 14px;background:#fff7f3;border-bottom:1px solid #e8560a;font-size:.7rem;color:#e8560a;font-weight:600;cursor:pointer;text-align:left;flex-shrink:0}
+#back-to-map.visible{display:block}
+
+@media(min-width:641px){
+  body{display:flex;flex-direction:column}
+  #tabs{display:none}
+  #desktop-main{display:flex;flex:1;min-height:0}
+  #panel-list{width:295px;min-width:295px;flex-shrink:0;display:flex!important;flex-direction:column;background:#fff;border-right:1px solid #e0e0e0;visibility:visible!important;pointer-events:auto!important;position:static!important;height:auto!important}
+  #panel-map{flex:1;position:relative!important;display:block!important;visibility:visible!important;pointer-events:auto!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;height:auto!important}
+  #leg{display:block}
+  #back-to-map{display:none!important}
+  #toast{bottom:16px}
+}
+@media(max-width:640px){
+  #desktop-main{display:contents}
+  #panel-map,#panel-list{position:fixed;top:76px;left:0;right:0;bottom:52px;visibility:hidden;pointer-events:none;z-index:1}
+  #panel-map.on,#panel-list.on{visibility:visible;pointer-events:auto;z-index:2}
+  #panel-map.on{position:fixed;top:76px;left:0;right:0;bottom:52px}
+  #panel-map{display:block}
+  #panel-list{display:flex;flex-direction:column;background:#f5f5f5;overflow:hidden}
+  #leg{display:none}
+  #toast{bottom:60px}
+}
+
+#map{width:100%;height:100%}
+
+#leg{display:none;position:absolute;bottom:20px;right:14px;background:#fff;border:1px solid #e0e0e0;padding:10px 14px;z-index:700;font-size:.64rem;color:#1a1a1a;line-height:2.2;pointer-events:none;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.li{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.ld{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+
+.leaflet-tile{filter:saturate(.88) brightness(1.02)}
+.leaflet-control-zoom{margin:12px!important}
+.leaflet-control-zoom a{background:#fff!important;border-color:#e0e0e0!important;color:#e8560a!important;width:32px!important;height:32px!important;line-height:32px!important;font-size:16px!important;box-shadow:0 1px 4px rgba(0,0,0,.1)!important}
+.leaflet-control-attribution{background:rgba(255,255,255,.85)!important;color:#9e9e9e!important;font-size:.45rem!important}
+.leaflet-popup-content-wrapper{background:#fff!important;border:none!important;border-radius:8px!important;color:#1a1a1a!important;box-shadow:0 4px 20px rgba(0,0,0,.12)!important}
+.leaflet-popup-tip{background:#fff!important}
+.leaflet-popup-content{margin:14px 16px!important;min-width:210px}
+.leaflet-popup-close-button{color:#9e9e9e!important;font-size:20px!important;padding:6px 8px!important}
+
+#filters{padding:10px;border-bottom:1px solid #e0e0e0;flex-shrink:0;background:#fff}
+#filters input{width:100%;display:block;margin-bottom:6px;background:#f5f5f5;border:1px solid #e0e0e0;color:#1a1a1a;font-size:.8rem;padding:8px 10px;outline:none;border-radius:5px;-webkit-appearance:none;transition:.12s}
+#filters input:focus{border-color:#e8560a;background:#fff;box-shadow:0 0 0 3px rgba(232,86,10,.07)}
+#filters input::placeholder{color:#bdbdbd}
+#sorts{display:flex;gap:4px;margin-bottom:6px}
+.sb{flex:1;background:#f5f5f5;border:1px solid #e0e0e0;color:#757575;font-size:.58rem;padding:6px 2px;cursor:pointer;text-transform:uppercase;border-radius:4px;transition:.12s}
+.sb.on{border-color:#e8560a;color:#e8560a;background:#fff7f3;font-weight:600}
+#cnt{font-size:.58rem;color:#9e9e9e}
+#cnt b{color:#e8560a;font-weight:600}
+
+#vlist{flex:1;overflow-y:auto;padding:8px;background:#f5f5f5;-webkit-overflow-scrolling:touch}
+#vlist::-webkit-scrollbar{width:3px}
+#vlist::-webkit-scrollbar-thumb{background:#e0e0e0;border-radius:2px}
+
+.vc{background:#fff;border:1px solid #e0e0e0;border-left:3px solid #e0e0e0;padding:10px 12px;margin-bottom:6px;cursor:pointer;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:.1s}
+.vc:active{background:#fafafa}
+.vc.sel{border-color:#e8560a;box-shadow:0 0 0 2px rgba(232,86,10,.12)}
+.vc.late{border-left-color:#d32f2f}
+.vc.minor{border-left-color:#f57f17}
+.vc.ok{border-left-color:#2e7d32}
+.vc.early{border-left-color:#1565c0}
+.vc.terminus{border-left-color:#6a1b9a;background:#fdf8ff}
+
+.vr1{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.vline{font-weight:700;font-size:1rem;background:#e8560a;color:#fff;min-width:40px;text-align:center;padding:2px 6px;flex-shrink:0;line-height:1.4;border-radius:4px}
+.vc.late .vline{background:#d32f2f}
+.vc.ok .vline{background:#2e7d32}
+.vc.minor .vline{background:#f57f17}
+.vc.early .vline{background:#1565c0}
+.vc.terminus .vline{background:#6a1b9a}
+.vhead{font-size:.8rem;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#1a1a1a}
+.vhead.dim{color:#bdbdbd;font-weight:400;font-style:italic}
+.dtag{font-size:.57rem;font-weight:600;padding:2px 8px;flex-shrink:0;white-space:nowrap;border-radius:10px}
+.dtag.late{color:#d32f2f;background:#ffebee}
+.dtag.ok{color:#2e7d32;background:#e8f5e9}
+.dtag.minor{color:#f57f17;background:#fff3e0}
+.dtag.early{color:#1565c0;background:#e3f2fd}
+.ptag{font-size:.55rem;font-weight:600;padding:2px 8px;background:#f3e5ff;color:#6a1b9a;flex-shrink:0;border-radius:10px}
+
+.vr2{display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap}
+.vtabor{font-size:.67rem;color:#757575;font-weight:500}
+.vmodel{font-size:.64rem;color:#9e9e9e;font-style:italic}
+.vbrig{font-size:.6rem;color:#e8560a;background:#fff7f3;padding:1px 8px;border-radius:10px;margin-left:auto;font-weight:500}
+.vr3{font-size:.61rem;color:#9e9e9e}
+.vr3 .red{color:#d32f2f}
+
+#emsg{display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;gap:10px;font-size:.75rem;color:#bdbdbd;text-align:center;padding:20px;line-height:1.7}
+#emsg .ico{font-size:2.5rem;opacity:.2}
+
+.pop-line{font-size:1.9rem;font-weight:700;color:#e8560a;line-height:1}
+.pop-line.terminus{color:#6a1b9a}
+.pop-head{font-size:.82rem;font-weight:600;margin:2px 0 2px;color:#1a1a1a}
+.pop-model{font-size:.64rem;color:#9e9e9e;margin-bottom:8px;font-style:italic}
+.pop-terminus{font-size:.6rem;font-weight:600;color:#6a1b9a;background:#f3e5ff;padding:2px 10px;display:inline-block;margin-bottom:8px;border-radius:10px}
+.ptbl{font-size:.64rem;border-collapse:collapse;width:100%}
+.ptbl td{padding:3px 0;border-bottom:1px solid #f5f5f5}
+.ptbl tr:last-child td{border-bottom:none}
+.ptbl td:first-child{color:#9e9e9e;padding-right:12px;white-space:nowrap}
+.ptbl td:last-child{color:#1a1a1a;font-weight:500}
+.cl{color:#d32f2f!important}.cm{color:#f57f17!important}.co{color:#2e7d32!important}.ce{color:#1565c0!important}
+.pop-btn{display:inline-block;margin-top:10px;font-size:.65rem;color:#fff;font-weight:500;background:#e8560a;padding:7px 18px;cursor:pointer;border-radius:4px;border:none}
+
+#toast{position:fixed;bottom:60px;left:50%;transform:translateX(-50%) translateY(80px);opacity:0;transition:.2s;background:#1a1a1a;padding:9px 20px;font-size:.67rem;color:#fff;z-index:9999;pointer-events:none;max-width:88vw;text-align:center;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <div id="logo">MPK Rzeszów <span>Live</span></div>
+  <div id="dot"></div>
+  <span id="ltxt">Inicjalizacja...</span>
+  <a id="btnSchedule" href="/schedule.html">📋 Rozkład</a>
+  <a id="btnApp" href="https://github.com/oko3099/MPK-Rzeszow-Flutter-App/releases" target="_blank">📱 Android</a>
+  <button id="btnR" onclick="doRefresh()">↺ Odśwież</button>
+</div>
+
+<div id="sbar">
+  <span>🚌 <b id="sc">—</b></span>
+  <span>⏰ <b id="sl">—</b> opóźn.</span>
+  <span>🟣 <b id="sp" class="red">—</b> pętla</span>
+  <span>GTFS <b id="sg">—</b></span>
+  <span id="cd"></span>
+</div>
+
+<div id="desktop-main">
+  <div id="panel-list">
+    <div id="back-to-map" onclick="backToMap()">← Wróć na mapę</div>
+    <div id="filters">
+      <input id="fl" placeholder="🔍 Linia (np. 17, 34)..." oninput="renderList()">
+      <input id="fh" placeholder="🔍 Kierunek..."           oninput="renderList()">
+      <input id="fm" placeholder="🔍 Model (np. Solaris)..." oninput="renderList()">
+      <input id="ft" placeholder="🔍 Numer taborowy..."     oninput="renderList()">
+      <div id="sorts">
+        <button class="sb on" data-s="delay" onclick="setSort(this)">Opóźn.</button>
+        <button class="sb"    data-s="line"  onclick="setSort(this)">Linia</button>
+        <button class="sb"    data-s="tabor" onclick="setSort(this)">Tabor</button>
+      </div>
+      <div id="cnt">Brak danych</div>
+    </div>
+    <div id="vlist"><div id="emsg"><div class="ico">🚌</div>Ładowanie...</div></div>
+  </div>
+
+  <div id="panel-map">
+    <div id="map"></div>
+    <div id="leg">
+      <div class="li"><div class="ld" style="background:#2e7d32"></div>Na czasie</div>
+      <div class="li"><div class="ld" style="background:#f57f17"></div>&lt;3 min opóźn.</div>
+      <div class="li"><div class="ld" style="background:#d32f2f"></div>&gt;3 min opóźn.</div>
+      <div class="li"><div class="ld" style="background:#e8560a"></div>Brak danych RT</div>
+      <div class="li"><div class="ld" style="background:#6a1b9a"></div>Na pętli</div>
+    </div>
+  </div>
+</div>
+
+<div id="tabs">
+  <button class="tab on" id="tab-map"  onclick="showTab('map')"><div class="tab-ico">🗺️</div><div>Mapa</div></button>
+  <button class="tab"    id="tab-list" onclick="showTab('list')"><div class="tab-ico">📋</div><div>Lista</div></button>
+  <button class="tab"    id="tab-srch" onclick="showTab('srch')"><div class="tab-ico">🔍</div><div>Szukaj</div></button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+'use strict';
+var vehicles=[], markers={}, sel=null, sortBy='delay', cdTimer, map;
+var cameFromMap=false;
+
+var COLORS={late:'#d32f2f',minor:'#f57f17',ok:'#2e7d32',early:'#1565c0',terminus:'#6a1b9a','':'#e8560a'};
+var DARKS= {late:'#b71c1c',minor:'#e65100',ok:'#1b5e20',early:'#0d47a1',terminus:'#4a148c','':'#cc4a00'};
+
+function showTab(t,fromMap){
+  activeTab=t;
+  document.getElementById('panel-map').classList.toggle('on',t==='map');
+  document.getElementById('panel-list').classList.toggle('on',t==='list'||t==='srch');
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('on');});
+  var el=document.getElementById('tab-'+(t==='srch'?'srch':t==='list'?'list':'map'));
+  if(el)el.classList.add('on');
+  if(t==='map'){setTimeout(function(){if(map)map.invalidateSize();},60);setTimeout(function(){if(map)map.invalidateSize();},350);}
+  if(t==='srch')setTimeout(function(){document.getElementById('fl').focus();},150);
+  cameFromMap=!!fromMap;
+  document.getElementById('back-to-map').classList.toggle('visible',cameFromMap&&window.innerWidth<=640);
+}
+var activeTab='map';
+function backToMap(){cameFromMap=false;document.getElementById('back-to-map').classList.remove('visible');showTab('map');if(sel&&markers[sel])markers[sel].openPopup();}
+
+function dc(v){if(v.atTerminus)return 'terminus';var d=v.delay;if(d==null)return '';if(d>180)return 'late';if(d>30)return 'minor';if(d<-30)return 'early';return 'ok';}
+function dl(d){
+  if(d==null)return '—';if(Math.abs(d)<=30)return 'Na czasie';
+  var ad=Math.abs(d),h=Math.floor(ad/3600),m=Math.floor((ad%3600)/60),s=ad%60,p=[];
+  if(h>0)p.push(h+'h');if(m>0||h>0)p.push(m+'min');p.push(s+'s');
+  return d>0?'Spóźn. -'+p.join(' '):'Przed cz. +'+p.join(' ');
+}
+function dlShort(d){
+  if(d==null||Math.abs(d)<=30)return null;
+  var ad=Math.abs(d),h=Math.floor(ad/3600),m=Math.floor((ad%3600)/60),s=ad%60,sgn=d>0?'-':'+';
+  if(h>0)return sgn+(h+'h'+m+'m');if(m>0)return sgn+(m+'m'+s+'s');return sgn+s+'s';
+}
+function ds(v){if(v.atTerminus)return -99999;return v.delay==null?-9999:v.delay;}
+function setDot(s,t){document.getElementById('dot').className=s;document.getElementById('ltxt').textContent=t;}
+var _tt;
+function toast(m){var e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){e.classList.remove('show');},2800);}
+function countdown(){clearInterval(cdTimer);var n=15,el=document.getElementById('cd');cdTimer=setInterval(function(){n--;el.textContent='↺'+n+'s';if(n<=0){clearInterval(cdTimer);doRefresh();}},1000);}
+
+function doRefresh(){
+  var btn=document.getElementById('btnR');btn.disabled=true;setDot('load','Pobieranie...');
+  var ctrl=new AbortController(),tid=setTimeout(function(){ctrl.abort();},12000);
+  fetch('/api/vehicles',{signal:ctrl.signal})
+    .then(function(r){clearTimeout(tid);if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+    .then(function(data){
+      if(data.error)throw new Error(data.error);
+      vehicles=data.vehicles||[];
+      var late=vehicles.filter(function(v){return v.delay>180&&!v.atTerminus;}).length;
+      var term=data.atTerminus||0;
+      document.getElementById('sc').textContent=vehicles.length;
+      document.getElementById('sl').textContent=late;
+      document.getElementById('sp').textContent=term;
+      document.getElementById('sg').textContent=data.gtfsLoaded?(data.tripsInDb+' kursów'):'—';
+      setDot(vehicles.length>0?'ok':'err',vehicles.length>0?'Live · '+vehicles.length+' pojazdów':'Brak pojazdów');
+      if(vehicles.length>0)toast('✓ '+vehicles.length+' autobusów · pętla: '+term);
+      renderList();renderMarkers();countdown();
+    })
+    .catch(function(e){clearTimeout(tid);setDot('err',e.name==='AbortError'?'Timeout':'Błąd');toast('❌ '+(e.name==='AbortError'?'Timeout':e.message));countdown();})
+    .finally(function(){btn.disabled=false;});
+}
+
+function renderList(){
+  var fl=document.getElementById('fl').value.trim().toLowerCase();
+  var fh=document.getElementById('fh').value.trim().toLowerCase();
+  var fm=document.getElementById('fm').value.trim().toLowerCase();
+  var ft=document.getElementById('ft').value.trim().toLowerCase();
+  var list=vehicles.filter(function(v){
+    if(fl&&!(v.lineNr||v.routeId||'').toLowerCase().includes(fl))return false;
+    if(fh&&!(v.headsign||'').toLowerCase().includes(fh))return false;
+    if(fm&&!((v.brand||'')+' '+(v.model||'')).toLowerCase().includes(fm))return false;
+    if(ft&&!(v.vehicleLabel||'').toLowerCase().includes(ft))return false;
+    return true;
+  });
+  if(sortBy==='delay')list.sort(function(a,b){return ds(b)-ds(a);});
+  if(sortBy==='line') list.sort(function(a,b){return (a.lineNr||'').localeCompare(b.lineNr||'');});
+  if(sortBy==='tabor')list.sort(function(a,b){return (a.vehicleLabel||'').localeCompare(b.vehicleLabel||'');});
+  document.getElementById('cnt').innerHTML='Widoczne: <b>'+list.length+'</b> / '+vehicles.length;
+  if(!list.length){document.getElementById('vlist').innerHTML='<div id="emsg"><div class="ico">'+(vehicles.length===0?'⏳':'🔍')+'</div>'+(vehicles.length===0?'Ładowanie...':'Brak wyników')+'</div>';return;}
+  document.getElementById('vlist').innerHTML=list.map(function(v){
+    var cls=dc(v),line=v.lineNr||v.routeId||'?',head=v.headsign||'';
+    var model=((v.brand?v.brand+' ':'')+v.model).trim();
+    return '<div class="vc '+cls+(v.id===sel?' sel':'')+'" onclick="selectV(\''+v.id+'\')">'+
+      '<div class="vr1"><div class="vline">'+line+'</div>'+
+      '<div class="vhead'+(head?'':' dim')+'">'+(head||'Brak GTFS')+'</div>'+
+      (v.atTerminus?'<span class="ptag">PĘTLA</span>':'')+(cls&&cls!=='terminus'?'<span class="dtag '+cls+'">'+dl(v.delay)+'</span>':'')+
+      '</div>'+
+      '<div class="vr2"><span class="vtabor">Tabor '+v.vehicleLabel+'</span>'+
+      (model?'<span class="vmodel">'+model+'</span>':'')+
+      (v.brigade?'<span class="vbrig">Bryg. '+v.brigade+'</span>':'')+
+      '</div>'+
+      (v.statusLabel?'<div class="vr3"><span class="'+(v.atTerminus?'red':'')+'">'+v.statusLabel+'</span></div>':'')+
+      '</div>';
+  }).join('');
+}
+
+function renderMarkers(){
+  if(!map)return;
+  var ids={};vehicles.forEach(function(v){ids[v.id]=true;});
+  Object.keys(markers).forEach(function(id){if(!ids[id]){markers[id].remove();delete markers[id];}});
+  var mob=window.innerWidth<=640;
+  vehicles.forEach(function(v){
+    if(!v.lat||!v.lon)return;
+    var cls=dc(v),line=v.lineNr||v.routeId||'?';
+    var dShort=dlShort(v.delay);
+    var hShort=v.headsign?(v.headsign.length>13?v.headsign.substring(0,12)+'…':v.headsign):'';
+    var col=COLORS[cls]||COLORS[''], dark=DARKS[cls]||DARKS[''];
+    var isMinor=cls==='minor';
+    var tc=isMinor?'#1a1a1a':'#fff';
+    var mW=mob?40:68, fsL=mob?12:18, fsS=mob?7:9, mH=mob?(v.atTerminus?48:(hShort?44:33)):(v.atTerminus?78:(hShort?76:60));
+    var inner=
+      (v.bearing?'<div style="font-size:'+(mob?9:12)+'px;line-height:1;transform:rotate('+v.bearing+'deg)">↑</div>':'')+
+      '<div style="font-size:'+fsL+'px;font-weight:700;color:'+tc+';line-height:1.1;white-space:nowrap">'+line+'</div>'+
+      (hShort?'<div style="font-size:'+fsS+'px;color:'+tc+';opacity:.88;line-height:1.2;max-width:'+(mW-6)+'px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+hShort+'</div>':'')+
+      (v.brigade?'<div style="font-size:'+fsS+'px;color:'+tc+';opacity:.72;line-height:1.2;white-space:nowrap">'+v.brigade+'</div>':'')+
+      (dShort?'<div style="font-size:'+fsS+'px;font-weight:600;color:'+tc+';line-height:1.1;white-space:nowrap;opacity:.9">'+dShort+'</div>':'')+
+      (v.atTerminus?'<div style="font-size:'+(mob?5:7)+'px;color:'+tc+';opacity:.72;text-transform:uppercase;letter-spacing:.5px;font-weight:600">pętla</div>':'');
+    var html='<div style="width:'+mW+'px;height:'+mH+'px;background:'+col+';border:1.5px solid '+dark+';border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);padding:2px 3px;position:relative;cursor:pointer">'+inner+
+      '<div style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top:6px solid '+dark+'"></div></div>';
+    var icon=L.divIcon({className:'',html:html,iconSize:[mW,mH],iconAnchor:[mW/2,mH],popupAnchor:[0,-(mH+6)]});
+    var cc={late:'cl',minor:'cm',ok:'co',early:'ce'}[cls]||'';
+    var modelTxt=((v.brand?v.brand+' ':'')+v.model).trim()||'Nieznany model';
+    var popup=
+      '<div class="pop-line'+(v.atTerminus?' terminus':'')+'">'+line+'</div>'+
+      '<div class="pop-head">'+(v.headsign||'Brak kierunku')+'</div>'+
+      (v.atTerminus?'<div class="pop-terminus">NA PĘTLI</div>':'')+
+      '<div class="pop-model">'+modelTxt+'</div>'+
+      '<table class="ptbl">'+
+      '<tr><td>Tabor</td><td>'+v.vehicleLabel+'</td></tr>'+
+      (v.brand?'<tr><td>Producent</td><td>'+v.brand+'</td></tr>':'')+
+      (v.model?'<tr><td>Model</td><td>'+v.model+'</td></tr>':'')+
+      '<tr><td>Brygada</td><td>'+(v.brigade||'—')+'</td></tr>'+
+      '<tr><td>Kierunek</td><td>'+(v.bearing?v.bearing+'°':'—')+'</td></tr>'+
+      '<tr><td>Status</td><td>'+(v.statusLabel||'—')+'</td></tr>'+
+      '<tr><td>Opóźnienie</td><td class="'+cc+'">'+dl(v.delay)+'</td></tr>'+
+      (v.occupancy?'<tr><td>Zapełnienie</td><td>'+v.occupancy+'</td></tr>':'')+
+      '</table>'+
+      '<div class="pop-btn" onclick="goToList(\''+v.id+'\')">📋 Pokaż w liście</div>';
+    if(markers[v.id]){markers[v.id].setLatLng([v.lat,v.lon]).setIcon(icon);if(markers[v.id].getPopup())markers[v.id].getPopup().setContent(popup);}
+    else{var m=L.marker([v.lat,v.lon],{icon:icon}).bindPopup(popup,{maxWidth:260}).addTo(map);m.on('click',(function(id){return function(){sel=id;renderList();};})(v.id));markers[v.id]=m;}
+  });
+}
+
+function goToList(id){map.closePopup();sel=id;showTab('list',true);renderList();setTimeout(function(){var c=document.querySelector('.vc.sel');if(c)c.scrollIntoView({behavior:'smooth',block:'center'});},200);}
+function selectV(id){sel=id;var v=vehicles.find(function(x){return x.id===id;});if(v&&v.lat&&map){cameFromMap=false;document.getElementById('back-to-map').classList.remove('visible');showTab('map');setTimeout(function(){map.flyTo([v.lat,v.lon],16,{duration:0.5});if(markers[id])markers[id].openPopup();},50);}renderList();}
+function setSort(btn){sortBy=btn.dataset.s;document.querySelectorAll('.sb').forEach(function(b){b.classList.toggle('on',b===btn);});renderList();}
+
+map=L.map('map',{zoomControl:true}).setView([50.0413,21.999],13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:19}).addTo(map);
+showTab('map');
+setTimeout(function(){if(map)map.invalidateSize();},100);
+setTimeout(function(){if(map)map.invalidateSize();},500);
+doRefresh();
+</script>
+</body>
+</html>
