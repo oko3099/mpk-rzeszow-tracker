@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mpk-rzeszow-tracker.onrender.com/sitemap.xml
