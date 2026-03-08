@@ -479,11 +479,12 @@ http.createServer(async (req, res) => {
 
   // ── ROZKŁAD: lista przystanków ───────────────────────────────────────────
   if(pathname==='/api/stops'){
-    const q = (parsedUrl.query.q || '').toLowerCase().trim();
+    const q     = (parsedUrl.query.q     || '').toLowerCase().trim();
+    const limit = parseInt(parsedUrl.query.limit) || 200;
     let list = Object.entries(stopMap).map(([id,s])=>({ id, name:s.name, lat:s.lat, lon:s.lon }));
     if(q) list = list.filter(s => s.name.toLowerCase().includes(q));
     list.sort((a,b) => a.name.localeCompare(b.name, 'pl'));
-    sendJSON(res, 200, { stops: list.slice(0, 100) });
+    sendJSON(res, 200, { stops: list.slice(0, limit) });
     return;
   }
 
