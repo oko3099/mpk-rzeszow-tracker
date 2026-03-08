@@ -1,120 +1,95 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rozkład jazdy – MPK Rzeszów</title>
+  <meta name="description" content="Rozkład jazdy autobusów MPK Rzeszów – godziny odjazdów, przystanki, kierunki.">
+  <link rel="stylesheet" href="schedule.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="back-btn">← Mapa na żywo</a>
+      <div class="logo">
+        <span class="logo-icon">🚌</span>
+        <div>
+          <div class="logo-title">MPK Rzeszów</div>
+          <div class="logo-sub">Rozkład jazdy</div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-:root {
-  --orange: #e8560a;
-  --orange-light: #fff0e8;
-  --orange-dark: #c04400;
-  --bg: #f4f4f4;
-  --surface: #fff;
-  --border: #ddd;
-  --text: #1a1a1a;
-  --text2: #666;
-  --radius: 10px;
-}
+  <div class="tabs">
+    <button class="tab active" data-tab="lines">🛣️ Linie</button>
+    <button class="tab" data-tab="stops">📍 Przystanki</button>
+  </div>
 
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  <!-- ── LINIE ── -->
+  <div id="tab-lines" class="tab-content active">
+    <div class="search-box">
+      <input type="text" id="search-lines" placeholder="🔍 Szukaj linii...">
+    </div>
+    <div id="lines-grid" class="lines-grid"></div>
 
-/* HEADER */
-header { background: var(--orange); color: #fff; padding: 12px 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
-.header-inner { max-width: 700px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
-.back-btn { color: rgba(255,255,255,.85); text-decoration: none; font-size: 13px; white-space: nowrap; }
-.back-btn:hover { color: #fff; }
-.logo { display: flex; align-items: center; gap: 10px; }
-.logo-icon { font-size: 22px; }
-.logo-title { font-size: 16px; font-weight: 800; }
-.logo-sub { font-size: 11px; opacity: .8; }
+    <!-- kierunek -->
+    <div id="variants-panel" class="panel hidden">
+      <div class="panel-header">
+        <button class="back" id="back-to-lines">← Linie</button>
+        <span class="line-badge" id="variant-line-nr"></span>
+        <span class="panel-title">Wybierz kierunek</span>
+      </div>
+      <div id="variants-list"></div>
+    </div>
 
-/* TABS */
-.tabs { display: flex; background: var(--surface); border-bottom: 2px solid var(--border); max-width: 700px; margin: 0 auto; }
-.tab { flex: 1; padding: 12px; font-size: 14px; font-weight: 600; background: none; border: none; cursor: pointer; color: var(--text2); border-bottom: 3px solid transparent; margin-bottom: -2px; transition: .15s; }
-.tab.active { color: var(--orange); border-bottom-color: var(--orange); }
-.tab:hover:not(.active) { background: var(--orange-light); }
+    <!-- przystanki na trasie -->
+    <div id="stops-panel" class="panel hidden">
+      <div class="panel-header">
+        <button class="back" id="back-to-variants">← Kierunki</button>
+        <span class="line-badge" id="stops-line-nr"></span>
+        <span class="panel-title" id="stops-variant-name"></span>
+      </div>
+      <div id="stops-list"></div>
+    </div>
 
-/* CONTENT */
-.tab-content { max-width: 700px; margin: 0 auto; padding: 14px 12px; }
-.tab-content.hidden { display: none !important; }
+    <!-- rozkład godzinowy -->
+    <div id="timetable-panel" class="panel hidden">
+      <div class="panel-header">
+        <button class="back" id="back-to-stops">← Przystanki</button>
+        <span class="line-badge" id="tt-line-nr"></span>
+        <div class="tt-info">
+          <div class="tt-stop-name" id="tt-stop-name"></div>
+          <div class="tt-variant" id="tt-variant"></div>
+        </div>
+      </div>
+      <div id="timetable-grid"></div>
+    </div>
+  </div>
 
-/* SEARCH */
-.search-box { margin-bottom: 10px; }
-.search-box input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; outline: none; transition: .15s; }
-.search-box input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(232,86,10,.1); }
+  <!-- ── PRZYSTANKI ── -->
+  <div id="tab-stops" class="tab-content hidden">
+    <div class="search-box">
+      <input type="text" id="search-stops" placeholder="🔍 Szukaj przystanku...">
+    </div>
+    <div id="stops-count" class="count-label"></div>
+    <div id="stops-all-list"></div>
 
-/* LINES GRID */
-.lines-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 8px; }
-.line-btn { background: var(--orange); color: #fff; border: none; border-radius: var(--radius); padding: 12px 6px; font-size: 17px; font-weight: 800; cursor: pointer; text-align: center; transition: .12s; box-shadow: 0 2px 6px rgba(232,86,10,.3); }
-.line-btn:hover { background: var(--orange-dark); transform: translateY(-1px); }
-.line-btn:active { transform: none; }
+    <!-- odjazdy z przystanku -->
+    <div id="departures-panel" class="panel hidden">
+      <div class="panel-header">
+        <button class="back" id="back-to-stops-list">← Przystanki</button>
+        <span class="panel-title" id="dep-stop-name"></span>
+      </div>
+      <div id="departures-list"></div>
+    </div>
+  </div>
 
-/* PANEL */
-.panel { display: block; }
-.panel.hidden { display: none; }
-.panel-header { display: flex; align-items: center; gap: 10px; background: var(--orange-light); border: 1px solid rgba(232,86,10,.2); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 12px; flex-wrap: wrap; }
-.back { background: none; border: 1.5px solid var(--orange); color: var(--orange); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-.back:hover { background: var(--orange); color: #fff; }
-.line-badge { background: var(--orange); color: #fff; font-size: 16px; font-weight: 800; padding: 3px 12px; border-radius: 7px; white-space: nowrap; }
-.panel-title { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  <div id="loading" class="loading hidden">
+    <div class="spinner"></div>
+    <div>Ładowanie...</div>
+  </div>
 
-/* VARIANT CARDS */
-.variant-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; gap: 14px; transition: .12s; }
-.variant-card:hover { border-color: var(--orange); background: var(--orange-light); }
-.variant-arrow { font-size: 20px; color: var(--orange); }
-.variant-info { flex: 1; }
-.variant-name { font-size: 15px; font-weight: 700; }
-.variant-meta { font-size: 12px; color: var(--text2); margin-top: 2px; }
-.variant-chevron { color: var(--text2); }
-
-/* STOP LIST (trasa) */
-.stop-row { display: flex; align-items: stretch; cursor: pointer; }
-.stop-row:hover .stop-name-wrap { background: var(--orange-light); }
-.stop-line-col { width: 32px; display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-.stop-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--orange-light); border: 2.5px solid var(--orange); flex-shrink: 0; margin-top: 12px; }
-.stop-dot.terminal { background: var(--orange); }
-.stop-connector { width: 2px; flex: 1; background: var(--orange-light); border-left: 2px dashed var(--border); }
-.stop-name-wrap { flex: 1; display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-radius: 8px; margin: 2px 0; transition: .12s; }
-.stop-name { font-size: 13px; font-weight: 500; }
-.stop-name.terminal { font-weight: 700; }
-.stop-dep { font-size: 12px; color: var(--text2); font-family: monospace; }
-
-/* TIMETABLE */
-.tt-info { flex: 1; min-width: 0; }
-.tt-stop-name { font-size: 14px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tt-variant { font-size: 11px; color: var(--text2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-.hour-row { display: flex; align-items: stretch; margin-bottom: 6px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: var(--surface); }
-.hour-row.current { border-color: var(--orange); background: rgba(232,86,10,.04); }
-.hour-cell { width: 44px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #555; flex-shrink: 0; }
-.hour-row.current .hour-cell { background: var(--orange); color: #fff; }
-.minutes-cell { flex: 1; padding: 8px 10px; display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; }
-.min-chip { background: rgba(232,86,10,.1); color: var(--text); border-radius: 5px; padding: 2px 8px; font-size: 13px; font-weight: 500; }
-.hour-row.current .min-chip { font-weight: 700; }
-.min-chip.past { background: #f0f0f0; color: #aaa; }
-
-/* DEPARTURES */
-.dep-card { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 6px; }
-.dep-line { background: var(--orange); color: #fff; border-radius: 8px; width: 44px; text-align: center; padding: 4px 0; font-size: 14px; font-weight: 800; flex-shrink: 0; }
-.dep-info { flex: 1; min-width: 0; }
-.dep-head { font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.dep-time { font-size: 12px; color: var(--text2); }
-.dep-badge { border-radius: 20px; padding: 4px 12px; font-size: 13px; font-weight: 700; white-space: nowrap; }
-.dep-badge.soon   { background: #fdecea; color: #c62828; }
-.dep-badge.medium { background: #fff8e1; color: #e65100; }
-.dep-badge.ok     { background: #e8f5e9; color: #2e7d32; }
-.dep-badge.gone   { background: #f0f0f0; color: #999; }
-
-/* MISC */
-.count-label { font-size: 12px; color: var(--text2); margin-bottom: 8px; }
-.stop-list-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--surface); border-bottom: 1px solid var(--border); cursor: pointer; transition: .12s; }
-.stop-list-item:first-child { border-radius: var(--radius) var(--radius) 0 0; }
-.stop-list-item:last-child { border-radius: 0 0 var(--radius) var(--radius); border-bottom: none; }
-.stop-list-item:hover { background: var(--orange-light); }
-.stop-list-icon { color: var(--orange); font-size: 16px; }
-.stop-list-name { font-size: 13px; font-weight: 500; flex: 1; }
-.stop-list-chevron { color: var(--text2); font-size: 16px; }
-
-.loading { position: fixed; inset: 0; background: rgba(255,255,255,.8); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; font-size: 14px; color: var(--text2); z-index: 999; }
-.loading.hidden { display: none; }
-.spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--orange); border-radius: 50%; animation: spin .7s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.empty { text-align: center; padding: 48px 24px; color: var(--text2); font-size: 14px; }
-.empty-icon { font-size: 40px; margin-bottom: 12px; }
+  <script src="schedule.js"></script>
+</body>
+</html>
