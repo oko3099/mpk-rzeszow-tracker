@@ -300,6 +300,20 @@ function normalize(entity, delayMap) {
   // Model z bazy
   const vdb = vehicleDb[tabor] || {};
 
+  // Najbliższy przystanek (z stopMap jeśli załadowany)
+  let nearestStop = null;
+  if (Object.keys(stopMap).length > 0) {
+    let bestDist = Infinity;
+    for (const [sid, s] of Object.entries(stopMap)) {
+      const dlat = (s.lat - lat) * 111320;
+      const dlon = (s.lon - lon) * 111320 * Math.cos(lat * Math.PI / 180);
+      const dist = Math.sqrt(dlat*dlat + dlon*dlon);
+      if (dist < bestDist) { bestDist = dist; nearestStop = { id: sid, name: s.name, dist: Math.round(dist) }; }
+    }
+    // Pokaż tylko jeśli w rozsądnej odległości (500m)
+    if (nearestStop && nearestStop.dist > 500) nearestStop = null;
+  }
+
   // Opóźnienie
   const delay = delayMap[trp.tripId] ?? null;
 
@@ -315,6 +329,8 @@ function normalize(entity, delayMap) {
     brand:       vdb.brand || '',
     model:       vdb.model || '',
     modelNote:   vdb.note  || '',
+    year:        vdb.year  || null,
+    nearestStop,
     routeId,
     lineNr,
     headsign,
