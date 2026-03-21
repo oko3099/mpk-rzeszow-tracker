@@ -297,6 +297,10 @@ function normalize(entity, delayMap) {
   const brigade   = tripInfo.brigade      || '';
   const lineNr    = routeMap[routeId]?.shortName || routeId || '';
 
+  // Przejazd techniczny — linia pusta lub zaczyna się od '0' bez headsign
+  const isTechnical = !lineNr || lineNr === '0' || lineNr === '' ||
+                      (headsign === '' && !lineNr.match(/^\d+[A-Z]?$/));
+
   // Model z bazy
   const vdb = vehicleDb[tabor] || {};
 
@@ -335,6 +339,7 @@ function normalize(entity, delayMap) {
     lineNr,
     headsign,
     brigade,
+    isTechnical,
     tripId:      trp.tripId   || '',
     startDate:   trp.startDate || '',
     lat, lon,
