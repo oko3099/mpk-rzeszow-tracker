@@ -297,9 +297,11 @@ function normalize(entity, delayMap) {
   const brigade   = tripInfo.brigade      || '';
   const lineNr    = routeMap[routeId]?.shortName || routeId || '';
 
-  // Przejazd techniczny — linia pusta lub zaczyna się od '0' bez headsign
-  const isTechnical = !lineNr || lineNr === '0' || lineNr === '' ||
-                      (headsign === '' && !lineNr.match(/^\d+[A-Z]?$/));
+  // Przejazd techniczny — brak linii, linia "0", lub linia zaczyna się od "0B"/"0" i brak headsign
+  const isTechnical = !lineNr || lineNr === '' ||
+                      lineNr === '0' ||
+                      (lineNr.startsWith('0') && !headsign) ||
+                      (!headsign && !lineNr.match(/^[1-9]\d*[A-Z]?$/));
 
   // Model z bazy
   const vdb = vehicleDb[tabor] || {};
