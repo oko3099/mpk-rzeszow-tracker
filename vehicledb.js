@@ -53,6 +53,9 @@ function buildVehicleDb() {
 
   // Solaris używane
   add(['791','792'],       'Solaris',       'Urbino 12',            2011);
+  // Testowe autobusy
+  add(['17']),             'NesoBus',
+'NesoBus 12',           2021);
 
   return db;
 }
